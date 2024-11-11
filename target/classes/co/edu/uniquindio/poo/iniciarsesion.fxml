@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.controller.LoginController">
+
+   <children>
+      <ImageView fitHeight="410.0" fitWidth="701.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../imagen/Concesionario.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="TextFieldContraseña" layoutX="83.0" layoutY="184.0" prefHeight="25.0" prefWidth="257.0" promptText="Escribe tu contraseña" />
+      <TextField fx:id="textFieldUsuario" layoutX="83.0" layoutY="108.0" prefHeight="25.0" prefWidth="257.0" promptText="Escribe tu usuario" />
+      <Text fx:id="textusuario" layoutX="83.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario:" />
+      <Text fx:id="textcontraseña" layoutX="83.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:" wrappingWidth="65.943359375" />
+      <Text fx:id="textcargo" layoutX="83.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cargo:" wrappingWidth="65.943359375" />
+      
+      <!-- ChoiceBox con opciones de Administrador y Empleado -->
+      <ChoiceBox fx:id="ChoiceBoxCargo" layoutX="83.0" layoutY="263.0" prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Administrador" />
+                <String fx:value="Empleado" />
+            </FXCollections>
+         </items>
+      </ChoiceBox>
+      <Button fx:id="btnIniciarSesion" layoutX="323.0" layoutY="334.0" onAction="#iniciarSesion" text="Iniciar Sesión" />
+      <Text fx:id="textCarro" layoutX="307.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu carro UQ" wrappingWidth="136.0">
+         <font>
+            <Font name="Copperplate Gothic Bold" size="18.0" />
+         </font></Text>
+   </children>
+</AnchorPane>
