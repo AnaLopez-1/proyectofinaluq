@@ -70,4 +70,19 @@ public class AdministradorController {
         }
     }
 }
-}
+
+
+        // Configuración de columnas para vehículos
+        Marca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarca()));
+        Modelo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModelo()));
+        Velocidad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVelocidadMaxima()));
+        NumeroPasajeros.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Bus) {
+                return new SimpleStringProperty(((Bus) cellData.getValue()).getNumeroPasajeros());
+            }
+            return new SimpleStringProperty("");
+        });
+
+        // Configuración de columnas para clientes
+        Cedula.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCedula()));
+        Nombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));

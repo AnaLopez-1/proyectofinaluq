@@ -5,8 +5,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import co.edu.uniquindio.poo.model.Bus;
 import co.edu.uniquindio.poo.model.Cliente;
@@ -14,11 +16,9 @@ import co.edu.uniquindio.poo.model.Vehiculo;
 import co.edu.uniquindio.poo.model.Empleado;
 import co.edu.uniquindio.poo.model.Moto;
 import co.edu.uniquindio.poo.model.Transaccion;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import co.edu.uniquindio.poo.controller.EmpleadoController;
 
 public class EmpleadoViewController {
@@ -52,12 +52,45 @@ public class EmpleadoViewController {
     @FXML
     private ComboBox<String> comboBoxTipoVehiculo;
     @FXML
+    private TextField textFieldNombreCliente;
+    @FXML
+    private TextField textFieldApellidoCliente;
+    @FXML
+    private TextField textFieldCorreoCliente;
+    @FXML
+    private TextField textFieldTelefonoCliente;
+    @FXML
     private TextField textFieldCedulaCliente;
+    @FXML
+    private TextField textFieldDireccionCliente;
     @FXML
     private Button btnAgregarVehiculo;
     @FXML
     private Button btnAgregarCliente;
-
+    @FXML
+    private TableColumn<Cliente, String> columnaNombre;
+    @FXML
+    private TableColumn<Cliente, String> columnaApellido;
+    @FXML
+    private TableColumn<Cliente, String> columnaCedula;
+    @FXML
+    private TableColumn<Cliente, String> columnaCorreo;
+    @FXML
+    private TableColumn<Cliente, String> columnaTelefono;
+    @FXML
+    private TableColumn<Cliente, String> columnaDireccion;
+    @FXML
+    private TextField nombre;
+    @FXML
+    private TextField apellido;
+    @FXML
+    private TextField correo;
+    @FXML
+    private TextField telefono;
+    @FXML
+    private TextField cedula;
+    @FXML
+    private TextField direccion;
     // Campos adicionales específicos para el tipo Bus
     @FXML
     private TextField textFieldNumeroPasajeros;
@@ -84,11 +117,34 @@ public class EmpleadoViewController {
             vehiculoSeleccionado = newValue;
         });
 
+        columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+        columnaApellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
+        columnaCedula.setCellValueFactory(new PropertyValueFactory<>("Cedula"));
+        columnaCorreo.setCellValueFactory(new PropertyValueFactory<>("Correo"));
+        columnaTelefono.setCellValueFactory(new PropertyValueFactory<>("Telefono"));
+        columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("Direccion"));
+    
+
+        // Listener para actualizar campos cuando se selecciona un cliente
         tableViewClientes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            clienteSeleccionado = newValue;
-        });
+        clienteSeleccionado = newValue;
+        if (clienteSeleccionado != null) {
+            mostrarDatosCliente(clienteSeleccionado);
+        }
+    });
     }
     
+    // Método para mostrar los datos del cliente en los campos de texto
+    private void mostrarDatosCliente(Cliente cliente) {
+        textFieldNombreCliente.setText(cliente.getNombre());
+        textFieldApellidoCliente.setText(cliente.getApellido());
+        textFieldCorreoCliente.setText(cliente.getCorreo());
+        textFieldTelefonoCliente.setText(cliente.getTelefono());
+        textFieldCedulaCliente.setText(cliente.getCedula());
+        textFieldDireccionCliente.setText(cliente.getDireccion());
+    }
+
+
     
     @FXML
     public void agregarVehiculo() {
@@ -133,13 +189,19 @@ public class EmpleadoViewController {
 
     @FXML
     public void agregarCliente() {
+        String nombre = textFieldNombreCliente.getText().trim();
+        String apellido = textFieldApellidoCliente.getText().trim();
+        String correo = textFieldCorreoCliente.getText().trim();
+        String telefono = textFieldTelefonoCliente.getText().trim();
         String cedula = textFieldCedulaCliente.getText().trim();
-        if (cedula.isEmpty()) {
-            showAlert("Error", "La cédula del cliente no puede estar vacía.");
+        String direccion = textFieldDireccionCliente.getText().trim();
+
+        if (cedula.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || correo.isEmpty() || direccion.isEmpty()) {
+            showAlert("Error", "Todos los campos deben estar completos");
             return;
         }
 
-        Cliente cliente = new Cliente("", "", "", "", "", "");
+        Cliente cliente = new Cliente(nombre, apellido, correo, telefono, cedula, direccion);
         if (empleadoController.agregarCliente(cliente)) {
             tableViewClientes.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaClientes()));
             showAlert("Cliente agregado", "El cliente ha sido agregado correctamente.");
@@ -150,14 +212,19 @@ public class EmpleadoViewController {
 
     @FXML
     public void actualizarCliente() {
+        String nombre = textFieldNombreCliente.getText().trim();
+        String apellido = textFieldApellidoCliente.getText().trim();
+        String correo = textFieldCorreoCliente.getText().trim();
+        String telefono = textFieldTelefonoCliente.getText().trim();
         String cedula = textFieldCedulaCliente.getText().trim();
-        
+        String direccion = textFieldDireccionCliente.getText().trim();
+
         if (cedula.isEmpty()) {
-            showAlert("Error", "La cédula del cliente no puede estar vacía.");
+            showAlert("Error", "La cédula no puede estar vacía.");
             return;
         }
 
-        // Buscar el cliente por su cédula
+        // Buscar el cliente en la lista
         Cliente clienteExistente = null;
         for (Cliente cliente : empleadoController.obtenerListaClientes()) {
             if (cliente.getCedula().equals(cedula)) {
@@ -167,27 +234,47 @@ public class EmpleadoViewController {
         }
 
         if (clienteExistente != null) {
-            // Si el cliente existe, puedes actualizar sus datos
-            // Por ejemplo, actualizando su nombre
-            clienteExistente.setNombre("Nuevo Nombre");
+            // Actualizar atributos del cliente
+            clienteExistente.setNombre(nombre);
+            clienteExistente.setApellido(apellido);
+            clienteExistente.setCorreo(correo);
+            clienteExistente.setTelefono(telefono);
+            clienteExistente.setDireccion(direccion);
 
-            // Actualiza el cliente a través del controlador
+            // Llamar al método para actualizar el cliente en empleadoController
             if (empleadoController.actualizarCliente(cedula, clienteExistente)) {
-                tableViewClientes.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaClientes()));
-                showAlert("Cliente actualizado", "El cliente ha sido actualizado correctamente.");
-            } else {
-                showAlert("Error", "No se pudo actualizar el cliente.");
-            }
-        } else {
-            showAlert("Error", "No se encontró un cliente con esa cédula.");
-        }
-    }
+                actualizarTablaClientes();
+                                showAlert("Cliente actualizado", "El cliente ha sido actualizado correctamente.");
+                            } else {
+                                showAlert("Error", "No se pudo actualizar el cliente.");
+                            }
+                        } else {
+                            showAlert("Error", "No se encontró un cliente con esa cédula.");
+                        }
+                    }
+                
+                
+                    private void actualizarTablaClientes() {
+                        // Limpia la tabla actual
+                        tableViewClientes.getItems().clear();
+                        // Vuelve a cargar la lista de clientes en la tabla desde el empleadoController
+                        tableViewClientes.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaClientes()));
+                        // Refresca la vista de la tabla
+                        tableViewClientes.refresh();
+                    }
+                    
 
+                
     @FXML
     public void eliminarCliente() {
+        String nombre = textFieldNombreCliente.getText().trim();
+        String apellido = textFieldApellidoCliente.getText().trim();
+        String correo = textFieldCorreoCliente.getText().trim();
+        String telefono = textFieldTelefonoCliente.getText().trim();
         String cedula = textFieldCedulaCliente.getText().trim();
-        
-        if (cedula.isEmpty()) {
+        String direccion = textFieldDireccionCliente.getText().trim();
+
+        if (cedula.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || correo.isEmpty() || direccion.isEmpty()) {
             showAlert("Error", "La cédula del cliente no puede estar vacía.");
             return;
         }
@@ -249,6 +336,15 @@ public class EmpleadoViewController {
         alert.showAndWait();
     }
 
+    @FXML
+    private void limpiarCampos() {
+        textFieldNombreCliente.setText("");
+        textFieldApellidoCliente.setText("");
+        textFieldCorreoCliente.setText("");
+        textFieldTelefonoCliente.setText("");
+        textFieldCedulaCliente.setText("");
+        textFieldDireccionCliente.setText("");
+    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
