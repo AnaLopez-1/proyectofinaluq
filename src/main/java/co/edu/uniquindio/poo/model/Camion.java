@@ -2,9 +2,9 @@ package co.edu.uniquindio.poo.model;
 
 public class Camion extends Vehiculo{
     private String capacidadDeCarga;
-    private int numeroEjes;
+    private String numeroEjes;
 
-    public Camion(String marca, boolean esNuevo, int modelo, String cambios, int velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, String capacidadDeCarga, int numeroEjes){
+    public Camion(String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, String capacidadDeCarga, String numeroEjes){
         super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
         this.capacidadDeCarga=capacidadDeCarga;
         this.numeroEjes=numeroEjes;
@@ -18,11 +18,11 @@ public class Camion extends Vehiculo{
         this.capacidadDeCarga = capacidadDeCarga;
     }
 
-    public int getNumeroEjes() {
+    public String getNumeroEjes() {
         return numeroEjes;
     }
 
-    public void setNumeroEjes(int numeroEjes) {
+    public void setNumeroEjes(String numeroEjes) {
         this.numeroEjes = numeroEjes;
     }
 

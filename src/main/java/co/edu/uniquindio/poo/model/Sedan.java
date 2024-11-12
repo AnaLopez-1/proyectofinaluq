@@ -1,8 +1,8 @@
 package co.edu.uniquindio.poo.model;
 
 public class Sedan extends Vehiculo {
-    private int numeroPasajeros;
-    private int numeroPuertas;
+    private String numeroPasajeros;
+    private String numeroPuertas;
     private String capacidadMaletero;
     private boolean tieneONoAireAcondicionado;
     private boolean tieneONoCamaraReversa;
@@ -13,7 +13,7 @@ public class Sedan extends Vehiculo {
     private boolean tieneONoSensorDeTrafico;
     private boolean tieneONoAsistenteDePermanencia;
 
-    public Sedan (String marca, boolean esNuevo, int modelo, String cambios, int velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, int numeroPasajeros, int numeroPuertas, String capacidadMaletero, boolean tieneONoAireAcondicionado, boolean tieneONoCamaraReversa, boolean tieneONoVelocidadCrucero, boolean numeroBolsasAire, boolean tieneONoAbs, boolean tieneONoSensoresColision, boolean tieneONoSensorDeTrafico, boolean tieneONoAsistenteDePermanencia){
+    public Sedan (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, String numeroPasajeros, String numeroPuertas, String capacidadMaletero, boolean tieneONoAireAcondicionado, boolean tieneONoCamaraReversa, boolean tieneONoVelocidadCrucero, boolean numeroBolsasAire, boolean tieneONoAbs, boolean tieneONoSensoresColision, boolean tieneONoSensorDeTrafico, boolean tieneONoAsistenteDePermanencia){
         super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
         this.numeroPasajeros=numeroPasajeros;
         this.numeroPuertas=numeroPuertas;
@@ -28,19 +28,19 @@ public class Sedan extends Vehiculo {
         this.tieneONoAsistenteDePermanencia=tieneONoAsistenteDePermanencia;
     }
 
-    public int getNumeroPasajeros() {
+    public String getNumeroPasajeros() {
         return numeroPasajeros;
     }
 
-    public void setNumeroPasajeros(int numeroPasajeros) {
+    public void setNumeroPasajeros(String numeroPasajeros) {
         this.numeroPasajeros = numeroPasajeros;
     }
 
-    public int getNumeroPuertas() {
+    public String getNumeroPuertas() {
         return numeroPuertas;
     }
 
-    public void setNumeroPuertas(int numeroPuertas) {
+    public void setNumeroPuertas(String numeroPuertas) {
         this.numeroPuertas = numeroPuertas;
     }
 

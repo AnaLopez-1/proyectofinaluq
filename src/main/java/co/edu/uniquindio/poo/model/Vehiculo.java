@@ -1,19 +1,17 @@
 package co.edu.uniquindio.poo.model;
 
-import java.util.Scanner;
-
 public abstract class Vehiculo {
     private String marca;
     private boolean esNuevo;
-    private int modelo;
+    private String modelo;
     private String cambios;
-    private int velocidadMaxima;
+    private String velocidadMaxima;
     private String cilindraje;
     private String combustible;
     private String transmision;
     private boolean revisionTecnica;
   
-    public Vehiculo (String marca, boolean esNuevo, int modelo, String cambios, int velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica){
+    public Vehiculo (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica){
         this.marca=marca;
         this.esNuevo=esNuevo;
         this.modelo=modelo;
@@ -52,7 +50,7 @@ public abstract class Vehiculo {
         this.marca = marca;
     }
 
-    public int getEsNuevo() {
+    public String getEsNuevo() {
         return modelo;
     }
     
@@ -64,15 +62,15 @@ public abstract class Vehiculo {
         this.esNuevo = esNuevo;
     }
 
-    public int getModelo() {
+    public String getModelo() {
         return modelo;
     }
 
-    public int isModelo() {
+    public String isModelo() {
         return modelo;
     }
 
-    public void setModelo(int modelo) {
+    public void setModelo(String modelo) {
         this.modelo = modelo;
     }
 
@@ -84,11 +82,11 @@ public abstract class Vehiculo {
         this.cambios = cambios;
     }
 
-    public int getVelocidadMaxima() {
+    public String getVelocidadMaxima() {
         return velocidadMaxima;
     }
 
-    public void setVelocidadMaxima(int velocidadMaxima) {
+    public void setVelocidadMaxima(String velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
     }
 
@@ -134,12 +132,6 @@ public abstract class Vehiculo {
         "cilindraje:" + cilindraje + "\n" +
         "combustible:" + combustible + "\n" +
         "transmision" + transmision;
-    }
-
-    public static int ingresarEntero(String mensaje){
-        Scanner scanner= new Scanner(System.in);
-        System.out.println(mensaje);
-        return scanner.nextInt();
     }
     
     public static void mostrarMensaje(String mensaje){

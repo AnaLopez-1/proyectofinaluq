@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.viewcontroller.EmpleadoViewController">
+    <children>
+        <!-- Título de la vista -->
+        <Text layoutX="300.0" layoutY="30.0" style="-fx-font-size: 24;" text="Gestión de Empleado" />
+
+        <!-- Sección de Clientes -->
+        <Text layoutX="68.0" layoutY="78.0" style="-fx-font-size: 18;" text="Clientes" />
+        <TableView fx:id="tableViewClientes" layoutX="70.0" layoutY="91.0" prefHeight="125.0" prefWidth="239.0">
+            <columns>
+                <TableColumn fx:id="columnaNombre" text="Nombre" />
+                <TableColumn fx:id="columnaApellido" text="Apellido" />
+                <TableColumn fx:id="columnaCedula" text="Cédula" />
+            </columns>
+        </TableView>
+        <Button layoutX="29.0" layoutY="288.0" onAction="#agregarCliente" text="Agregar Cliente" />
+        <Button layoutX="149.0" layoutY="288.0" onAction="#actualizarCliente" text="Actualizar Cliente" />
+        <Button layoutX="273.0" layoutY="288.0" onAction="#eliminarCliente" text="Eliminar Cliente" />
+
+        <!-- Sección de Vehículos -->
+        <Text layoutX="568.0" layoutY="66.0" style="-fx-font-size: 18;" text="Vehículos" />
+        <TableView fx:id="tableViewVehiculos" layoutX="569.0" layoutY="83.0" prefHeight="142.0" prefWidth="300.0">
+            <columns>
+                <TableColumn fx:id="columnaMarca" text="Marca" />
+                <TableColumn fx:id="columnaModelo" text="Modelo" />
+            </columns>
+        </TableView>
+
+        <Label layoutX="526.0" layoutY="289.0" text="Marca:" />
+        <TextField fx:id="textFieldMarcaVehiculo" layoutX="570.0" layoutY="285.0" prefWidth="200.0" />
+
+        <Label layoutX="522.0" layoutY="327.0" text="Modelo:" />
+        <TextField fx:id="textFieldModeloVehiculo" layoutX="570.0" layoutY="323.0" prefWidth="200.0" />
+
+        <Label layoutX="467.0" layoutY="359.0" text="Velocidad Máxima:" />
+        <TextField fx:id="textFieldVelocidadVehiculo" layoutX="570.0" layoutY="355.0" prefWidth="200.0" />
+
+        <Label layoutX="518.0" layoutY="389.0" text="Cilindraje:" />
+        <TextField fx:id="textFieldCilindrajeVehiculo" layoutX="570.0" layoutY="385.0" prefWidth="200.0" />
+
+        <Label layoutX="500.0" layoutY="419.0" text="Combustible:" />
+        <TextField fx:id="textFieldCombustibleVehiculo" layoutX="570.0" layoutY="415.0" prefWidth="200.0" />
+
+        <Label layoutX="502.0" layoutY="449.0" text="Transmisión:" />
+        <TextField fx:id="textFieldTransmisionVehiculo" layoutX="570.0" layoutY="445.0" prefWidth="200.0" />
+
+        <Label layoutX="806.0" layoutY="292.0" text="Es Nuevo:" />
+        <CheckBox fx:id="checkBoxEsNuevo" layoutX="886.0" layoutY="289.0" />
+
+        <Label layoutX="787.0" layoutY="319.0" text="Revisión Técnica:" />
+        <CheckBox fx:id="checkBoxRevisionTecnica" layoutX="886.0" layoutY="319.0" />
+
+        <Label layoutX="462.0" layoutY="489.0" text="Tipo de Vehículo:" />
+        <ComboBox fx:id="comboBoxTipoVehiculo" layoutX="570.0" layoutY="485.0" prefWidth="200.0">
+            <!-- Aquí no es necesario agregar los elementos en FXML -->
+        </ComboBox>
+
+        <Button layoutX="778.0" layoutY="540.0" onAction="#agregarVehiculo" text="Agregar Vehículo" />
+
+        <!-- Panel de Transacciones -->
+        <Text layoutX="38.0" layoutY="434.0" style="-fx-font-size: 18;" text="Transacciones" />
+        <TableView fx:id="tableViewTransacciones" layoutX="29.0" layoutY="458.0" prefHeight="150.0" prefWidth="320.0">
+            <columns>
+                <TableColumn fx:id="columnaTipo" text="Tipo" />
+                <TableColumn fx:id="columnaCliente" text="Cliente" />
+                <TableColumn fx:id="columnaVehiculo" text="Vehículo" />
+                <TableColumn fx:id="columnaFecha" text="Fecha" />
+            </columns>
+        </TableView>
+        <Button layoutX="38.0" layoutY="641.0" onAction="#realizarTransaccion" text="Realizar Transacción" />
+    </children>
+</AnchorPane>

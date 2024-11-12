@@ -1,32 +1,32 @@
 package co.edu.uniquindio.poo.model;
 
 public class Camioneta extends Vehiculo{
-    private int numeroPasajeros;
-    private int numeroPuertas;
+    private String numeroPasajeros;
+    private String numeroPuertas;
     private String capacidadMaletero;
-    private int numeroBolsasDeAire;
+    private String numeroBolsasDeAire;
     
-    public Camioneta (String marca, boolean esNuevo, int modelo, String cambios, int velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, int numeroPasajeros, int numeroPuertas, String capacidadMaletero, int numeroBolsasDeAire){
+    public Camioneta (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, String numeroPasajeros, String numeroPuertas, String capacidadMaletero, String numeroBolsasDeAire){
         super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
-        this.numeroPasajeros=numeroPasajeros;
+        this.numeroPasajeros=numeroPasajeros; 
         this.numeroPuertas=numeroPuertas;
         this.capacidadMaletero=capacidadMaletero;
         this.numeroBolsasDeAire=numeroBolsasDeAire;
     }
 
-    public int getNumeroPasajeros() {
+    public String getNumeroPasajeros() {
         return numeroPasajeros;
     }
 
-    public void setNumeroPasajeros(int numeroPasajeros) {
+    public void setNumeroPasajeros(String numeroPasajeros) {
         this.numeroPasajeros = numeroPasajeros;
     }
 
-    public int getNumeroPuertas() {
+    public String getNumeroPuertas() {
         return numeroPuertas;
     }
 
-    public void setNumeroPuertas(int numeroPuertas) {
+    public void setNumeroPuertas(String numeroPuertas) {
         this.numeroPuertas = numeroPuertas;
     }
 
@@ -38,11 +38,11 @@ public class Camioneta extends Vehiculo{
         this.capacidadMaletero = capacidadMaletero;
     }
 
-    public int getNumeroBolsasDeAire() {
+    public String getNumeroBolsasDeAire() {
         return numeroBolsasDeAire;
     }
 
-    public void setNumeroBolsasDeAire(int numeroBolsasDeAire) {
+    public void setNumeroBolsasDeAire(String numeroBolsasDeAire) {
         this.numeroBolsasDeAire = numeroBolsasDeAire;
     }
 
