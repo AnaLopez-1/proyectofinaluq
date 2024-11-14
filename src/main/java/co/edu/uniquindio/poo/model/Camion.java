@@ -8,6 +8,7 @@ public class Camion extends Vehiculo{
         super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
         this.capacidadDeCarga=capacidadDeCarga;
         this.numeroEjes=numeroEjes;
+        setTipo("Camion");
     }
 
     public String getCapacidadDeCarga() {

@@ -10,6 +10,7 @@ public abstract class Vehiculo {
     private String combustible;
     private String transmision;
     private boolean revisionTecnica;
+    private String tipo;
   
     public Vehiculo (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica){
         this.marca=marca;
@@ -31,17 +32,14 @@ public abstract class Vehiculo {
         this.combustible = combustible;
     }
 
-
     public String getTransmision() {
         return transmision;
     }
 
-
     public void setTransmision(String transmision) {
         this.transmision = transmision;
     }
-
-
+    
     public String getMarca() {
         return marca;
     }
@@ -104,6 +102,14 @@ public abstract class Vehiculo {
 
     public void setRevisionTecnica(boolean revisionTecnica) {
         this.revisionTecnica = revisionTecnica;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     // Método para realizar revisión técnica

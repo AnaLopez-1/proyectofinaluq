@@ -12,6 +12,7 @@ public class Pick_Ups extends Vehiculo{
         this.numeroPuertas=numeroPuertas;
         this.capacidadCajaDeCarga=capacidadCajaDeCarga;
         this.numeroBolsasDeAire=numeroBolsasDeAire;
+        setTipo("Pick Ups");
     }
 
     public String getNumeroPasajeros() {

@@ -1,68 +1,138 @@
-package co.edu.uniquindio.poo.controller;
-
-import java.util.List;
-import co.edu.uniquindio.poo.exceptions.VehiculoException;
-import co.edu.uniquindio.poo.model.Vehiculo;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
 
 public class VehiculoController {
 
-    private final Vehiculo vehiculo;
+    @FXML
+    private ComboBox<String> comboBoxTipoVehiculo;
 
-    public VehiculoController() {
-        this.vehiculo = new Vehiculo();
+    @FXML
+    private Label labelMarca;
+    @FXML
+    private TextField textFieldMarcaVehiculo;
+
+    @FXML
+    private Label labelEsNuevo;
+    @FXML
+    private CheckBox checkBoxEsNuevoVehiculo;
+
+    @FXML
+    private Label labelVelocidadMaxima;
+    @FXML
+    private TextField textFieldVelocidadMaximaVehiculo;
+
+    @FXML
+    private Label labelCilindraje;
+    @FXML
+    private TextField textFieldCilindrajeVehiculo;
+
+    @FXML
+    private Label labelCombustible;
+    @FXML
+    private TextField textFieldCombustibleVehiculo;
+
+    @FXML
+    private Label labelTransmision;
+    @FXML
+    private TextField textFieldTransmisionVehiculo;
+
+    @FXML
+    private Label labelCambios;
+    @FXML
+    private TextField textFieldCambiosVehiculo;
+
+    @FXML
+    private Button buttonAgregar;
+
+    @FXML
+    public void initialize() {
+        comboBoxTipoVehiculo.getItems().addAll("Moto", "Bus", "Camioneta");
+        
+        comboBoxTipoVehiculo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            ocultarCamposEspecificosVehiculo();
+            onTipoVehiculoSeleccionado();
+        });
     }
 
-    // **1. Registrar Vehículo**
-    public void registrarVehiculo(Vehiculo vehiculo) throws VehiculoException {
-        try {
-            vehiculo.registrarVehiculo(vehiculo);
-        } catch (Exception e) {
-            throw new VehiculoException("Error al registrar el vehículo", e);
+    private void ocultarCamposEspecificosVehiculo() {
+        labelMarca.setVisible(false);
+        textFieldMarcaVehiculo.setVisible(false);
+        labelEsNuevo.setVisible(false);
+        checkBoxEsNuevoVehiculo.setVisible(false);
+        labelVelocidadMaxima.setVisible(false);
+        textFieldVelocidadMaximaVehiculo.setVisible(false);
+        labelCilindraje.setVisible(false);
+        textFieldCilindrajeVehiculo.setVisible(false);
+        labelCombustible.setVisible(false);
+        textFieldCombustibleVehiculo.setVisible(false);
+        labelTransmision.setVisible(false);
+        textFieldTransmisionVehiculo.setVisible(false);
+        labelCambios.setVisible(false);
+        textFieldCambiosVehiculo.setVisible(false);
+    }
+
+    private void onTipoVehiculoSeleccionado() {
+        String tipoVehiculo = comboBoxTipoVehiculo.getValue();
+
+        mostrarCamposGenerales();
+
+        if ("Moto".equals(tipoVehiculo)) {
+            mostrarCamposMoto();
+        } else if ("Bus".equals(tipoVehiculo)) {
+            mostrarCamposBus();
+        } else if ("Camioneta".equals(tipoVehiculo)) {
+            mostrarCamposCamioneta();
         }
     }
 
-    // **2. Actualizar Información del Vehículo**
-    public void actualizarVehiculo(Vehiculo vehiculo) throws VehiculoException {
-        try {
-            vehiculo.actualizarVehiculo(vehiculo);
-        } catch (Exception e) {
-            throw new VehiculoException("Error al actualizar el vehículo", e);
-        }
+    private void mostrarCamposGenerales() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
     }
 
-    // **3. Eliminar Vehículo**
-    public void eliminarVehiculo(String vehiculoId) throws VehiculoException {
-        try {
-            vehiculo.eliminarVehiculo(vehiculoId);
-        } catch (Exception e) {
-            throw new VehiculoException("Error al eliminar el vehículo", e);
-        }
+    private void mostrarCamposMoto() {
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
     }
 
-    // **4. Obtener Vehículos Disponibles para Venta o Alquiler**
-    public List<Vehiculo> obtenerVehiculosDisponibles() throws VehiculoException {
-        try {
-            return vehiculo.obtenerVehiculosDisponibles();
-        } catch (Exception e) {
-            throw new VehiculoException("Error al obtener la lista de vehículos disponibles", e);
-        }
+    private void mostrarCamposBus() {
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
     }
 
-    // **5. Realizar Revisión Técnica del Vehículo**
-    public boolean pasarRevisionTecnica(String vehiculoId) throws VehiculoException {
-        try {
-            return vehiculo.pasarRevisionTecnica(vehiculoId);
-        } catch (Exception e) {
-            throw new VehiculoException("Error al realizar la revisión técnica del vehículo", e);
-        }
+    private void mostrarCamposCamioneta() {
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
     }
 
-    // **6. Buscar Vehículo por ID**
-    public Vehiculo buscarVehiculoPorId(String vehiculoId) throws VehiculoException {
-        try {
-            return vehiculo.buscarVehiculoPorId(vehiculoId);
-        } catch (Exception e) {
-            throw new VehiculoException("Error al buscar el vehículo", e);
+    @FXML
+    private void agregarVehiculo() {
+        String marca = textFieldMarcaVehiculo.getText().trim();
+        boolean esNuevo = checkBoxEsNuevoVehiculo.isSelected();
+        String tipoVehiculo = comboBoxTipoVehiculo.getValue();
+
+        if ("Moto".equals(tipoVehiculo)) {
+            String velocidadMaxima = textFieldVelocidadMaximaVehiculo.getText().trim();
+            String cilindraje = textFieldCilindrajeVehiculo.getText().trim();
+            // Lógica para agregar una moto con sus atributos específicos
+        } else if ("Bus".equals(tipoVehiculo)) {
+            String combustible = textFieldCombustibleVehiculo.getText().trim();
+            String transmision = textFieldTransmisionVehiculo.getText().trim();
+            // Lógica para agregar un bus con sus atributos específicos
+        } else if ("Camioneta".equals(tipoVehiculo)) {
+            String transmision = textFieldTransmisionVehiculo.getText().trim();
+            String cambios = textFieldCambiosVehiculo.getText().trim();
+            // Lógica para agregar una camioneta con sus atributos específicos
         }
+
+        // Aquí va la lógica común para agregar el vehículo a la lista o base de datos
     }
 }

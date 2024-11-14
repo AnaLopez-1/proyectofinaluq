@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.geometry.Pos?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1213.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.viewcontroller.EmpleadoViewController">
     <children>
@@ -11,103 +13,158 @@
 
         <!-- TabPane para organizar las pestañas de Clientes, Vehículos y Transacciones -->
         <TabPane layoutX="20.0" layoutY="50.0" prefHeight="600.0" prefWidth="1170.0">
-            <!-- Pestaña de Clientes -->
-            <Tab text="Clientes">
-                <AnchorPane>
-                    <Text layoutX="20.0" layoutY="20.0" style="-fx-font-size: 18;" text="Clientes" />
-                    <TableView fx:id="tableViewClientes" layoutX="20.0" layoutY="40.0" prefHeight="150.0" prefWidth="500.0">
-                        <columns>
-                            <TableColumn fx:id="columnaNombre" prefWidth="75.0" text="Nombre" />
-                            <TableColumn fx:id="columnaApellido" prefWidth="75.0" text="Apellido" />
-                            <TableColumn fx:id="columnaCorreo" prefWidth="100.0" text="Correo" />
-                            <TableColumn fx:id="columnaTelefono" prefWidth="100.0" text="Teléfono" />
-                            <TableColumn fx:id="columnaCedula" prefWidth="75.0" text="Cédula" />
-                            <TableColumn fx:id="columnaDireccion" prefWidth="75.0" text="Dirección" />
-                        </columns>
-                    </TableView>
-                    <Text layoutX="20.0" layoutY="210.0" text="Nombre:" />
-                    <TextField fx:id="textFieldNombreCliente" layoutX="90.0" layoutY="200.0" />
-                    
-                    <Text layoutX="20.0" layoutY="250.0" text="Apellido:" />
-                    <TextField fx:id="textFieldApellidoCliente" layoutX="90.0" layoutY="240.0" />
-                    
-                    <Text layoutX="20.0" layoutY="290.0" text="Correo:" />
-                    <TextField fx:id="textFieldCorreoCliente" layoutX="90.0" layoutY="280.0" />
-                    
-                    <Text layoutX="20.0" layoutY="330.0" text="Teléfono:" />
-                    <TextField fx:id="textFieldTelefonoCliente" layoutX="90.0" layoutY="320.0" />
-                    
-                    <Text layoutX="20.0" layoutY="370.0" text="Cédula:" />
-                    <TextField fx:id="textFieldCedulaCliente" layoutX="90.0" layoutY="360.0" />
-                    
-                    <Text layoutX="20.0" layoutY="410.0" text="Dirección:" />
-                    <TextField fx:id="textFieldDireccionCliente" layoutX="90.0" layoutY="400.0" />
+            <tabs>
+                <!-- Pestaña de Vehículos -->
+                <Tab text="Vehículos">
+                    <content>
+                        <AnchorPane>
+                            <children>
+                                <Text layoutX="20.0" layoutY="20.0" style="-fx-font-size: 18;" text="Vehículos" />
 
-                    <Button fx:id="btnAgregarCliente" layoutX="20.0" layoutY="450.0" onAction="#agregarCliente" text="Agregar Cliente" />
-                    <Button fx:id="btnActualizarCliente" layoutX="150.0" layoutY="450.0" onAction="#actualizarCliente" text="Actualizar Cliente" />
-                    <Button fx:id="btnEliminarCliente" layoutX="280.0" layoutY="450.0" onAction="#eliminarCliente" text="Eliminar Cliente" />
-                    <Button fx:id="btnLimpiarCampos" layoutX="400.0" layoutY="450.0" onAction="#limpiarCampos" text="Limpiar Campos" />
-                </AnchorPane>
+                                <!-- Tabla de Vehículos -->
+                                <TableView fx:id="tableViewVehiculos" layoutX="20.0" layoutY="40.0" prefHeight="150.0" prefWidth="443.0">
+                                    <columns>
+                                        <TableColumn fx:id="columnaMarca" prefWidth="39.0" text="Marca" />
+                                        <TableColumn fx:id="columnaModelo" prefWidth="49.0" text="Modelo" />
+                              <TableColumn fx:id="columnaCambios" prefWidth="55.0" text="Cambios" />
+                              <TableColumn fx:id="columnaVelocidadMaxima" prefWidth="87.0" text="Velocidad Maxima" />
+                              <TableColumn fx:id="columnaCilindraje" prefWidth="59.0" text="Cilindraje" />
+                              <TableColumn fx:id="columnaCombustible" prefWidth="79.0" text="Combustible" />
+                              <TableColumn fx:id="columnaTransmision" prefWidth="75.0" text="Transmision" />
+                                    </columns>
+                                </TableView>
+
+                                <!-- ComboBox para seleccionar el tipo de vehículo -->
+                                <Label layoutX="27.0" layoutY="202.0" text="Tipo de Vehículo:" />
+                                <ComboBox fx:id="comboBoxTipoVehiculo" layoutX="135.0" layoutY="207.0" onAction="#onTipoVehiculoSeleccionado" />
+
+                                <!-- Atributos específicos de los vehículos -->
+                                <Label fx:id="labelMarca" layoutX="593.0" layoutY="94.0" text="Marca:" />
+                                <TextField fx:id="textFieldMarcaVehiculo" layoutX="368.0" layoutY="238.0" />
+
+                                <Label fx:id="labelEsNuevo" layoutX="629.0" layoutY="143.0" text="Es Nuevo:" />
+                                <CheckBox fx:id="checkBoxEsNuevoVehiculo" layoutX="695.0" layoutY="143.0" text="Sí" />
+
+                                <Label fx:id="labelModelo" layoutX="614.0" layoutY="194.0" text="Modelo:" />
+                                <TextField fx:id="textFieldModeloVehiculo" layoutX="668.0" layoutY="190.0" />
+
+                                <Label fx:id="labelCambios" layoutX="605.0" layoutY="234.0" text="Cambios:" />
+                                <TextField fx:id="textFieldCambiosVehiculo" layoutX="668.0" layoutY="230.0" />
+
+                                <Label fx:id="labelCilindraje" layoutX="603.0" layoutY="279.0" text="Cilindraje:" />
+                                <TextField fx:id="textFieldCilindrajeVehiculo" layoutX="668.0" layoutY="278.0" />
+
+                                <Label fx:id="labelCombustible" layoutX="585.0" layoutY="335.0" text="Combustible:" />
+                                <TextField fx:id="textFieldCombustibleVehiculo" layoutX="668.0" layoutY="331.0" />
+
+                                <!-- Atributos adicionales -->
+                                <Label fx:id="labelVelocidadMaxima" layoutX="263.0" layoutY="242.0" text="Velocidad Máxima:" />
+                                <TextField fx:id="textFieldVelocidadMaximaVehiculo" layoutX="636.0" layoutY="90.0" />
+
+                                <Label fx:id="labelTransmision" layoutX="294.0" layoutY="287.0" text="Transmisión:" />
+                                <TextField fx:id="textFieldTransmisionVehiculo" layoutX="368.0" layoutY="278.0" />
+
+                                <Label fx:id="labelNumeroPuertas" layoutX="248.0" layoutY="337.0" text="Número de puertas:" />
+                                <TextField fx:id="textFieldNumeroPuertasVehiculo" layoutX="368.0" layoutY="333.0" />
+
+                                <Label fx:id="labelNumeroPasajeros" layoutX="231.0" layoutY="372.0" text="Número de pasajeros:" />
+                                <TextField fx:id="textFieldNumeroPasajerosVehiculo" layoutX="368.0" layoutY="368.0" />
+
+                                <Label fx:id="labelCapacidadMaletero" layoutX="273.0" layoutY="408.0" text="Capacidad maletero:" />
+                                <TextField fx:id="textFieldCapacidadMaleteroVehiculo" layoutX="388.0" layoutY="404.0" />
+
+                                <Label fx:id="labelCapacidadCajaDeCarga" layoutX="273.0" layoutY="408.0" text="Capacidad maletero:" />
+                                <TextField fx:id="textFieldCapacidadCajaDeCargaVehiculo" layoutX="388.0" layoutY="404.0" />
+
+                                <Label fx:id="labelNumeroBolsasDeAire" layoutX="255.0" layoutY="454.0" text="Bolsas de aire:" />
+                                <TextField fx:id="textFieldNumeroBolsasDeAireVehiculo" layoutX="343.0" layoutY="450.0" />
+
+                                <Label fx:id="labelNumeroEjes" layoutX="276.0" layoutY="487.0" text="Número de ejes:" />
+                                <TextField fx:id="textFieldNumeroEjesVehiculo" layoutX="368.0" layoutY="483.0" />
+
+                                <!-- Checkboxes -->
+                                <Label fx:id="labelRevisionTecnica" layoutX="17.0" layoutY="326.0" text="Revisión Técnica:" />
+                                <CheckBox fx:id="checkBoxRevisionTecnicaVehiculo" layoutX="110.0" layoutY="330.0" text="Sí" />
+
+                                <Label fx:id="labeltieneONoAireAcondicionado" layoutX="5.0" layoutY="295.0" text="Tiene aire acondicionado:" />
+                                <CheckBox fx:id="checkBoxtieneONoAireAcondicionadoVehiculo" layoutX="150.0" layoutY="296.0" text="Sí" />
+
+                                <Label fx:id="labeltieneONoCamaraReversa" layoutX="14.0" layoutY="359.0" text="Tiene cámara reversa:" />
+                                <CheckBox fx:id="checkBoxtieneONoCamaraReversaVehiculo" layoutX="131.0" layoutY="359.0" text="Sí" />
+
+                                <Label fx:id="labeltieneONoVelocidadCrucero" layoutX="9.0" layoutY="398.0" text="Tiene velocidad crucero:" />
+                                <CheckBox fx:id="checkBoxtieneONoVelocidadCruceroVehiculo" layoutX="150.0" layoutY="398.0" text="Sí" />
+
+                                <Label fx:id="labeltieneONoAbs" layoutX="16.0" layoutY="425.0" text="Tiene ABS:" />
+                                <CheckBox fx:id="checkBoxtieneONoAbsVehiculo" layoutX="86.0" layoutY="425.0" text="Sí" />
+
+                                <Label fx:id="labeltieneONoSensoresDeColision" layoutX="16.0" layoutY="454.0" text="Tiene sensores de colisión:" />
+                                <CheckBox fx:id="checkBoxtieneONoSensoresDeColisionVehiculo" layoutX="165.0" layoutY="454.0" text="Sí" />
+
+                                <Label fx:id="labeltieneONoSensorDeTrafico" layoutX="10.0" layoutY="487.0" text="Tiene sensores de tráfico:" />
+                                <CheckBox fx:id="checkBoxtieneONoSensorDeTraficoVehiculo" layoutX="167.0" layoutY="487.0" text="Sí" />
+
+                                <Label fx:id="labeltieneONoAsistenteDePermanencia" layoutX="10.0" layoutY="521.0" text="Tiene asistente de permanencia:" />
+                                <CheckBox fx:id="checkBoxtieneONoAsistenteDePermanenciaVehiculo" layoutX="167.0" layoutY="521.0" text="Sí" />
+
+                                <!-- Botón de Agregar Vehículo -->
+                                <Button fx:id="btnAgregarVehiculo" layoutX="42.0" layoutY="243.0" onAction="#agregarVehiculo" text="Agregar Vehículo" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+
+                <!-- Pestaña de Clientes -->
+                <Tab text="Clientes">
+   <content>
+                   <AnchorPane>
+                      <children>
+                          <Text layoutX="20.0" layoutY="20.0" style="-fx-font-size: 18;" text="Clientes" />
+                          <TableView fx:id="tableViewClientes" layoutX="20.0" layoutY="40.0" prefHeight="150.0" prefWidth="500.0">
+                              <columns>
+                                  <TableColumn fx:id="columnaNombre" prefWidth="75.0" text="Nombre" />
+                                  <TableColumn fx:id="columnaApellido" prefWidth="75.0" text="Apellido" />
+                                  <TableColumn fx:id="columnaCorreo" prefWidth="100.0" text="Correo" />
+                                  <TableColumn fx:id="columnaTelefono" prefWidth="100.0" text="Teléfono" />
+                                  <TableColumn fx:id="columnaCedula" prefWidth="75.0" text="Cédula" />
+                                  <TableColumn fx:id="columnaDireccion" prefWidth="75.0" text="Dirección" />
+                              </columns>
+                          </TableView>
+                          <Text layoutX="20.0" layoutY="210.0" text="Nombre:" />
+                          <TextField fx:id="textFieldNombreCliente" layoutX="90.0" layoutY="200.0" />
+                          
+                          <Text layoutX="20.0" layoutY="250.0" text="Apellido:" />
+                          <TextField fx:id="textFieldApellidoCliente" layoutX="90.0" layoutY="240.0" />
+                          
+                          <Text layoutX="20.0" layoutY="290.0" text="Correo:" />
+                          <TextField fx:id="textFieldCorreoCliente" layoutX="90.0" layoutY="280.0" />
+                          
+                          <Text layoutX="20.0" layoutY="330.0" text="Teléfono:" />
+                          <TextField fx:id="textFieldTelefonoCliente" layoutX="90.0" layoutY="320.0" />
+                          
+                          <Text layoutX="20.0" layoutY="370.0" text="Cédula:" />
+                          <TextField fx:id="textFieldCedulaCliente" layoutX="90.0" layoutY="360.0" />
+                          
+                          <Text layoutX="20.0" layoutY="410.0" text="Dirección:" />
+                          <TextField fx:id="textFieldDireccionCliente" layoutX="90.0" layoutY="400.0" />
+      
+                          <Button fx:id="btnAgregarCliente" layoutX="20.0" layoutY="450.0" onAction="#agregarCliente" text="Agregar Cliente" />
+                          <Button fx:id="btnActualizarCliente" layoutX="150.0" layoutY="450.0" onAction="#actualizarCliente" text="Actualizar Cliente" />
+                          <Button fx:id="btnEliminarCliente" layoutX="280.0" layoutY="450.0" onAction="#eliminarCliente" text="Eliminar Cliente" />
+                          <Button fx:id="btnLimpiarCampos" layoutX="400.0" layoutY="450.0" onAction="#limpiarCampos" text="Limpiar Campos" />
+                      </children>
+                   </AnchorPane>
+   </content>
             </Tab>
-            
-            <!-- Pestaña de Vehículos -->
-            <Tab text="Vehículos">
-                <AnchorPane>
-                    <Text layoutX="20.0" layoutY="20.0" style="-fx-font-size: 18;" text="Vehículos" />
-                    <TableView fx:id="tableViewVehiculos" layoutX="20.0" layoutY="40.0" prefHeight="150.0" prefWidth="500.0">
-                        <columns>
-                            <TableColumn fx:id="columnaMarca" text="Marca" />
-                            <TableColumn fx:id="columnaModelo" text="Modelo" />
-                        </columns>
-                    </TableView>
+                
 
-                    <Label layoutX="20.0" layoutY="210.0" text="Marca:" />
-                    <TextField fx:id="textFieldMarcaVehiculo" layoutX="100.0" layoutY="200.0" />
-
-                    <Label layoutX="20.0" layoutY="250.0" text="Modelo:" />
-                    <TextField fx:id="textFieldModeloVehiculo" layoutX="100.0" layoutY="240.0" />
-
-                    <Label layoutX="20.0" layoutY="290.0" text="Velocidad Máxima:" />
-                    <TextField fx:id="textFieldVelocidadVehiculo" layoutX="140.0" layoutY="280.0" />
-
-                    <Label layoutX="20.0" layoutY="330.0" text="Cilindraje:" />
-                    <TextField fx:id="textFieldCilindrajeVehiculo" layoutX="100.0" layoutY="320.0" />
-
-                    <Label layoutX="20.0" layoutY="370.0" text="Combustible:" />
-                    <TextField fx:id="textFieldCombustibleVehiculo" layoutX="100.0" layoutY="360.0" />
-
-                    <Label layoutX="20.0" layoutY="410.0" text="Transmisión:" />
-                    <TextField fx:id="textFieldTransmisionVehiculo" layoutX="100.0" layoutY="400.0" />
-
-                    <Label layoutX="300.0" layoutY="210.0" text="Es Nuevo:" />
-                    <CheckBox fx:id="checkBoxEsNuevo" layoutX="370.0" layoutY="210.0" />
-
-                    <Label layoutX="300.0" layoutY="250.0" text="Revisión Técnica:" />
-                    <CheckBox fx:id="checkBoxRevisionTecnica" layoutX="400.0" layoutY="250.0" />
-
-                    <Label layoutX="300.0" layoutY="290.0" text="Tipo de Vehículo:" />
-                    <ComboBox fx:id="comboBoxTipoVehiculo" layoutX="400.0" layoutY="290.0" />
-
-                    <Button fx:id="btnAgregarVehiculo" layoutX="20.0" layoutY="450.0" onAction="#agregarVehiculo" text="Agregar Vehículo" />
-                </AnchorPane>
-            </Tab>
-
-            <!-- Pestaña de Transacciones -->
-            <Tab text="Transacciones">
-                <AnchorPane>
-                    <Text layoutX="20.0" layoutY="20.0" style="-fx-font-size: 18;" text="Transacciones" />
-                    <TableView fx:id="tableViewTransacciones" layoutX="20.0" layoutY="40.0" prefHeight="150.0" prefWidth="500.0">
-                        <columns>
-                            <TableColumn fx:id="columnaTipo" text="Tipo" />
-                            <TableColumn fx:id="columnaCliente" text="Cliente" />
-                            <TableColumn fx:id="columnaVehiculo" text="Vehículo" />
-                            <TableColumn fx:id="columnaFecha" text="Fecha" />
-                        </columns>
-                    </TableView>
-                    
-                    <Button layoutX="20.0" layoutY="210.0" onAction="#realizarTransaccion" text="Realizar Transacción" />
-                </AnchorPane>
-            </Tab>
+                <!-- Pestaña de Transacciones -->
+                <Tab text="Transacciones">
+                    <content>
+                        <AnchorPane />
+                    </content>
+                </Tab>
+            </tabs>
         </TabPane>
     </children>
 </AnchorPane>

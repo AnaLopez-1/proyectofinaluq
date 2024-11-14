@@ -5,16 +5,25 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import co.edu.uniquindio.poo.model.Bus;
 import co.edu.uniquindio.poo.model.Cliente;
 import co.edu.uniquindio.poo.model.Vehiculo;
 import co.edu.uniquindio.poo.model.Empleado;
 import co.edu.uniquindio.poo.model.Moto;
+import co.edu.uniquindio.poo.model.Camion;
+import co.edu.uniquindio.poo.model.Camioneta;
+import co.edu.uniquindio.poo.model.Deportivo;
+import co.edu.uniquindio.poo.model.Pick_Ups;
+import co.edu.uniquindio.poo.model.Sedan;
+import co.edu.uniquindio.poo.model.Vans;
 import co.edu.uniquindio.poo.model.Transaccion;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,8 +38,12 @@ public class EmpleadoViewController {
     private List<Transaccion> transacciones = new ArrayList<>();  // Lista de transacciones
 
 
+    //----------------------------------------------FXML VEHÍCULOS--------------------------------------
+
     @FXML
     private TableView<Vehiculo> tableViewVehiculos;
+    @FXML
+    private ObservableList<Vehiculo> listaVehiculos = FXCollections.observableArrayList();  // Lista completa de vehículos
     @FXML
     private TableView<Cliente> tableViewClientes;
     @FXML
@@ -38,7 +51,7 @@ public class EmpleadoViewController {
     @FXML
     private TextField textFieldModeloVehiculo;
     @FXML
-    private TextField textFieldVelocidadVehiculo;
+    private TextField textFieldVelocidadMaximaVehiculo;
     @FXML
     private TextField textFieldCilindrajeVehiculo;
     @FXML
@@ -46,11 +59,101 @@ public class EmpleadoViewController {
     @FXML
     private TextField textFieldTransmisionVehiculo;
     @FXML
-    private CheckBox checkBoxEsNuevo;
+    private TextField textFieldCambiosVehiculo;
     @FXML
-    private CheckBox checkBoxRevisionTecnica;
+    private CheckBox checkBoxEsNuevoVehiculo;
+    @FXML
+    private CheckBox checkBoxRevisionTecnicaVehiculo;
+    @FXML
+    private CheckBox checkBoxtieneONoAireAcondicionadoVehiculo;
+    @FXML
+    private CheckBox checkBoxtieneONoCamaraReversaVehiculo;
+    @FXML
+    private CheckBox checkBoxtieneONoVelocidadCruceroVehiculo;
+    @FXML
+    private CheckBox checkBoxtieneONoAbsVehiculo;
+    @FXML
+    private CheckBox checkBoxtieneONoSensoresDeColisionVehiculo;
+    @FXML
+    private CheckBox checkBoxtieneONoSensorDeTraficoVehiculo;
+    @FXML
+    private CheckBox checkBoxtieneONoAsistenteDePermanenciaVehiculo;
     @FXML
     private ComboBox<String> comboBoxTipoVehiculo;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaMarca;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaModelo;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaCambios;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaVelocidadMaxima;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaCilindraje;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaCombustible;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaTransmision;
+    @FXML
+    private TextField textFieldNumeroPasajerosVehiculo;
+    @FXML
+    private TextField textFieldNumeroPuertasVehiculo;
+    @FXML
+    private TextField textFieldCapacidadMaleteroVehiculo;
+    @FXML
+    private TextField textFieldNumeroBolsasDeAireVehiculo;
+    @FXML
+    private TextField textFieldCapacidadCajaDeCargaVehiculo;
+    @FXML
+    private TextField textFieldNumeroEjesVehiculo;
+    @FXML
+    private Label labelVelocidadMaxima;
+    @FXML
+    private Label labelCilindraje;
+    @FXML
+    private Label labelCombustible;
+    @FXML
+    private Label labelTransmision;
+    @FXML
+    private Label labelMarca;
+    @FXML
+    private Label labelModelo;
+    @FXML
+    private Label labelCambios;
+    @FXML
+    private Label labelRevisionTecnica;
+    @FXML
+    private Label labelEsNuevo;
+    @FXML
+    private Label labelNumeroPuertas;
+    @FXML
+    private Label labelNumeroPasajeros;
+    @FXML
+    private Label labelCapacidadMaletero;
+    @FXML
+    private Label labelNumeroBolsasDeAire;
+    @FXML
+    private Label labelCapacidadCajaDeCarga;
+    @FXML
+    private Label labelNumeroEjes;
+    @FXML
+    private Label labeltieneONoAireAcondicionado;
+    @FXML
+    private Label labeltieneONoCamaraReversa;
+    @FXML
+    private Label labeltieneONoVelocidadCrucero;
+    @FXML
+    private Label labeltieneONoAbs;
+    @FXML
+    private Label labeltieneONoSensoresDeColision;
+    @FXML
+    private Label labeltieneONoSensorDeTrafico;
+    @FXML
+    private Label labeltieneONoAsistenteDePermanencia;
+
+
+    //----------------------------------------------------FXML CLIENTES--------------------------------------------------
+
     @FXML
     private TextField textFieldNombreCliente;
     @FXML
@@ -91,31 +194,37 @@ public class EmpleadoViewController {
     private TextField cedula;
     @FXML
     private TextField direccion;
-    // Campos adicionales específicos para el tipo Bus
-    @FXML
-    private TextField textFieldNumeroPasajeros;
-    @FXML
-    private TextField textFieldNumeroPuertas;
-    @FXML
-    private TextField textFieldCapacidadMaletero;
-    @FXML
-    private TextField textFieldBolsasAire;
+
 
     public void initialize() {
+
+        ocultarCamposEspecificosVehiculo();
+        comboBoxTipoVehiculo.getValue();
+        onTipoVehiculoSeleccionado();
+
         Empleado empleado = new Empleado("Juan", "Perez", "juan@example.com", "123456789", "E001", "3000", "password123");
         empleadoController = new EmpleadoController(empleado);
     
         // Inicializar ComboBox con los tipos de vehículos
-        comboBoxTipoVehiculo.setItems(FXCollections.observableArrayList("Moto", "Bus"));
-    
+        ObservableList<String> tipoVehiculo = FXCollections.observableArrayList("Moto", "Bus", "Camion", "Camioneta", "Deportivo", "Pick Ups", "Sedan", "Vans");
+        comboBoxTipoVehiculo.setItems(tipoVehiculo); 
+
         // Cargar datos iniciales en las tablas
         tableViewVehiculos.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaVehiculos()));
         tableViewClientes.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaClientes()));
-
+        
         // Agregar listeners para seleccionar vehículo y cliente
         tableViewVehiculos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             vehiculoSeleccionado = newValue;
         });
+
+        columnaMarca.setCellValueFactory(new PropertyValueFactory<>("Marca"));
+        columnaModelo.setCellValueFactory(new PropertyValueFactory<>("Modelo"));
+        columnaCambios.setCellValueFactory(new PropertyValueFactory<>("Cambios"));
+        columnaVelocidadMaxima.setCellValueFactory(new PropertyValueFactory<>("VelocidadMaxima"));
+        columnaCilindraje.setCellValueFactory(new PropertyValueFactory<>("Cilindraje"));
+        columnaCombustible.setCellValueFactory(new PropertyValueFactory<>("Combustible"));
+        columnaTransmision.setCellValueFactory(new PropertyValueFactory<>("Transmision"));
 
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
         columnaApellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
@@ -133,45 +242,390 @@ public class EmpleadoViewController {
         }
     });
     }
-    
-    // Método para mostrar los datos del cliente en los campos de texto
-    private void mostrarDatosCliente(Cliente cliente) {
-        textFieldNombreCliente.setText(cliente.getNombre());
-        textFieldApellidoCliente.setText(cliente.getApellido());
-        textFieldCorreoCliente.setText(cliente.getCorreo());
-        textFieldTelefonoCliente.setText(cliente.getTelefono());
-        textFieldCedulaCliente.setText(cliente.getCedula());
-        textFieldDireccionCliente.setText(cliente.getDireccion());
+
+
+    //--------------------------------------------VEHÍCULOS----------------------------------------
+
+    private void ocultarCamposEspecificosVehiculo() {
+
+        labelMarca.setVisible(false);
+        textFieldMarcaVehiculo.setVisible(false);
+
+        labelEsNuevo.setVisible(false);
+        checkBoxEsNuevoVehiculo.setVisible(false);
+
+        labelModelo.setVisible(false);
+        textFieldModeloVehiculo.setVisible(false);
+
+        labelCambios.setVisible(false);
+        textFieldCambiosVehiculo.setVisible(false);
+
+        labelVelocidadMaxima.setVisible(false);
+        textFieldVelocidadMaximaVehiculo.setVisible(false);
+
+        labelCilindraje.setVisible(false);
+        textFieldCilindrajeVehiculo.setVisible(false);
+
+        labelCombustible.setVisible(false);
+        textFieldCombustibleVehiculo.setVisible(false);
+
+        labelTransmision.setVisible(false);
+        textFieldTransmisionVehiculo.setVisible(false);
+
+        labelRevisionTecnica.setVisible(false);
+        checkBoxRevisionTecnicaVehiculo.setVisible(false);
+
+        labeltieneONoAireAcondicionado.setVisible(false);
+        checkBoxtieneONoAireAcondicionadoVehiculo.setVisible(false);
+
+        labeltieneONoCamaraReversa.setVisible(false);
+        checkBoxtieneONoCamaraReversaVehiculo.setVisible(false);
+
+        labeltieneONoVelocidadCrucero.setVisible(false);
+        checkBoxtieneONoVelocidadCruceroVehiculo.setVisible(false);
+
+        labeltieneONoAbs.setVisible(false);
+        checkBoxtieneONoAbsVehiculo.setVisible(false);
+
+        labeltieneONoSensoresDeColision.setVisible(false);
+        checkBoxtieneONoSensoresDeColisionVehiculo.setVisible(false);
+
+        labeltieneONoSensorDeTrafico.setVisible(false);
+        checkBoxtieneONoSensorDeTraficoVehiculo.setVisible(false);
+
+        labeltieneONoAsistenteDePermanencia.setVisible(false);
+        checkBoxtieneONoAsistenteDePermanenciaVehiculo.setVisible(false);
+
+        labelNumeroPuertas.setVisible(false);
+        textFieldNumeroPuertasVehiculo.setVisible(false);
+
+        labelNumeroPasajeros.setVisible(false);
+        textFieldNumeroPasajerosVehiculo.setVisible(false);
+
+        labelNumeroEjes.setVisible(false);
+        textFieldNumeroEjesVehiculo.setVisible(false);
+
+        labelCapacidadCajaDeCarga.setVisible(false);
+        textFieldCapacidadCajaDeCargaVehiculo.setVisible(false);
+
+        labelCapacidadMaletero.setVisible(false);
+        textFieldCapacidadMaleteroVehiculo.setVisible(false);
+
+        labelNumeroBolsasDeAire.setVisible(false);
+        textFieldNumeroBolsasDeAireVehiculo.setVisible(false);
     }
 
+    @FXML
+    public void onTipoVehiculoSeleccionado() {
+        ocultarCamposEspecificosVehiculo();
+        // Dependiendo del tipo de vehículo seleccionado, mostramos los atributos específicos
+        String tipoVehiculo = comboBoxTipoVehiculo.getValue();
 
+        if ("Moto".equals(tipoVehiculo)) {
+            mostrarCamposMoto();
+        } else if ("Bus".equals(tipoVehiculo)) {
+            mostrarCamposBus();
+        } else if ("Camion".equals(tipoVehiculo)) {
+            mostrarCamposCamion();
+        } else if ("Camioneta".equals(tipoVehiculo)) {
+            mostrarCamposCamioneta();
+        } else if ("Deportivo".equals(tipoVehiculo)) {
+            mostrarCamposDeportivo();
+        } else if ("Pick Ups".equals(tipoVehiculo)) {
+            mostrarCamposPickUps();
+        } else if ("Sedan".equals(tipoVehiculo)) {
+            mostrarCamposSedan();
+        } else if ("Vans".equals(tipoVehiculo)) {
+            mostrarCamposVans();
+        }
+    }
+
+    private void mostrarCamposMoto() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
+        labelModelo.setVisible(true);
+        textFieldModeloVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelRevisionTecnica.setVisible(true);
+        checkBoxRevisionTecnicaVehiculo.setVisible(true);
+    }
+
+    private void mostrarCamposBus() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
+        labelModelo.setVisible(true);
+        textFieldModeloVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelRevisionTecnica.setVisible(true);
+        checkBoxRevisionTecnicaVehiculo.setVisible(true);
+        labelNumeroPuertas.setVisible(true);
+        textFieldNumeroPuertasVehiculo.setVisible(true);
+        labelNumeroPasajeros.setVisible(true);
+        textFieldNumeroPasajerosVehiculo.setVisible(true);
+        labelCapacidadMaletero.setVisible(true);
+        textFieldCapacidadMaleteroVehiculo.setVisible(true);
+        labelNumeroBolsasDeAire.setVisible(true);
+        textFieldNumeroBolsasDeAireVehiculo.setVisible(true);
+    }
     
+    private void mostrarCamposCamioneta() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
+        labelModelo.setVisible(true);
+        textFieldModeloVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelRevisionTecnica.setVisible(true);
+        checkBoxRevisionTecnicaVehiculo.setVisible(true);
+        labelNumeroPuertas.setVisible(true);
+        textFieldNumeroPuertasVehiculo.setVisible(true);
+        labelNumeroPasajeros.setVisible(true);
+        textFieldNumeroPasajerosVehiculo.setVisible(true);
+        labelCapacidadMaletero.setVisible(true);
+        textFieldCapacidadMaleteroVehiculo.setVisible(true);
+        labelNumeroBolsasDeAire.setVisible(true);
+        textFieldNumeroBolsasDeAireVehiculo.setVisible(true);
+    }
+    
+    private void mostrarCamposCamion() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
+        labelModelo.setVisible(true);
+        textFieldModeloVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelRevisionTecnica.setVisible(true);
+        checkBoxRevisionTecnicaVehiculo.setVisible(true);
+        labelCapacidadCajaDeCarga.setVisible(true);
+        textFieldCapacidadCajaDeCargaVehiculo.setVisible(true);
+        labelNumeroEjes.setVisible(true);
+        textFieldNumeroEjesVehiculo.setVisible(true);
+    }
+
+    private void mostrarCamposDeportivo() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
+        labelModelo.setVisible(true);
+        textFieldModeloVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelRevisionTecnica.setVisible(true);
+        checkBoxRevisionTecnicaVehiculo.setVisible(true);
+        labelNumeroPuertas.setVisible(true);
+        textFieldNumeroPuertasVehiculo.setVisible(true);
+        labelNumeroPasajeros.setVisible(true);
+        textFieldNumeroPasajerosVehiculo.setVisible(true);
+        labelNumeroBolsasDeAire.setVisible(true);
+        textFieldNumeroBolsasDeAireVehiculo.setVisible(true);
+    }
+
+    private void mostrarCamposPickUps() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
+        labelModelo.setVisible(true);
+        textFieldModeloVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelRevisionTecnica.setVisible(true);
+        checkBoxRevisionTecnicaVehiculo.setVisible(true);
+        labelNumeroPuertas.setVisible(true);
+        textFieldNumeroPuertasVehiculo.setVisible(true);
+        labelNumeroPasajeros.setVisible(true);
+        textFieldNumeroPasajerosVehiculo.setVisible(true);
+        labelNumeroBolsasDeAire.setVisible(true);
+        textFieldNumeroBolsasDeAireVehiculo.setVisible(true);
+        labelCapacidadCajaDeCarga.setVisible(true);
+        textFieldCapacidadCajaDeCargaVehiculo.setVisible(true);
+    }
+
+    private void mostrarCamposSedan() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
+        labelModelo.setVisible(true);
+        textFieldModeloVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelRevisionTecnica.setVisible(true);
+        checkBoxRevisionTecnicaVehiculo.setVisible(true);
+        labelNumeroPuertas.setVisible(true);
+        textFieldNumeroPuertasVehiculo.setVisible(true);
+        labelNumeroPasajeros.setVisible(true);
+        textFieldNumeroPasajerosVehiculo.setVisible(true);
+        labelCapacidadMaletero.setVisible(true);
+        textFieldCapacidadMaleteroVehiculo.setVisible(true);
+        labeltieneONoAireAcondicionado.setVisible(true);
+        checkBoxtieneONoAireAcondicionadoVehiculo.setVisible(true);
+        labeltieneONoCamaraReversa.setVisible(true);
+        checkBoxtieneONoCamaraReversaVehiculo.setVisible(true);
+        labeltieneONoVelocidadCrucero.setVisible(true);
+        checkBoxtieneONoVelocidadCruceroVehiculo.setVisible(true);
+        labelNumeroBolsasDeAire.setVisible(true);
+        textFieldNumeroBolsasDeAireVehiculo.setVisible(true);
+        labeltieneONoAbs.setVisible(true);
+        checkBoxtieneONoAbsVehiculo.setVisible(true);
+        labeltieneONoSensoresDeColision.setVisible(true);
+        checkBoxtieneONoSensoresDeColisionVehiculo.setVisible(true);
+        labeltieneONoSensorDeTrafico.setVisible(true);
+        checkBoxtieneONoSensorDeTraficoVehiculo.setVisible(true);
+        labeltieneONoAsistenteDePermanencia.setVisible(true);
+        checkBoxtieneONoAsistenteDePermanenciaVehiculo.setVisible(true);
+    }
+
+    private void mostrarCamposVans() {
+        labelMarca.setVisible(true);
+        textFieldMarcaVehiculo.setVisible(true);
+        labelEsNuevo.setVisible(true);
+        checkBoxEsNuevoVehiculo.setVisible(true);
+        labelModelo.setVisible(true);
+        textFieldModeloVehiculo.setVisible(true);
+        labelCambios.setVisible(true);
+        textFieldCambiosVehiculo.setVisible(true);
+        labelVelocidadMaxima.setVisible(true);
+        textFieldVelocidadMaximaVehiculo.setVisible(true);
+        labelCilindraje.setVisible(true);
+        textFieldCilindrajeVehiculo.setVisible(true);
+        labelCombustible.setVisible(true);
+        textFieldCombustibleVehiculo.setVisible(true);
+        labelTransmision.setVisible(true);
+        textFieldTransmisionVehiculo.setVisible(true);
+        labelRevisionTecnica.setVisible(true);
+        checkBoxRevisionTecnicaVehiculo.setVisible(true);
+        labelNumeroPuertas.setVisible(true);
+        textFieldNumeroPuertasVehiculo.setVisible(true);
+        labelNumeroPasajeros.setVisible(true);
+        textFieldNumeroPasajerosVehiculo.setVisible(true);
+        labelCapacidadMaletero.setVisible(true);
+        textFieldCapacidadMaleteroVehiculo.setVisible(true);
+        labelNumeroBolsasDeAire.setVisible(true);
+        textFieldNumeroBolsasDeAireVehiculo.setVisible(true);
+    }
+
     @FXML
     public void agregarVehiculo() {
         try {
             String marca = textFieldMarcaVehiculo.getText().trim();
             String modelo = textFieldModeloVehiculo.getText().trim();
-            String velocidadMaxima = textFieldVelocidadVehiculo.getText().trim();
+            String cambios = textFieldModeloVehiculo.getText().trim();
+            String velocidadMaxima = textFieldVelocidadMaximaVehiculo.getText().trim();
             String cilindraje = textFieldCilindrajeVehiculo.getText().trim();
             String combustible = textFieldCombustibleVehiculo.getText().trim();
             String transmision = textFieldTransmisionVehiculo.getText().trim();
-            boolean esNuevo = checkBoxEsNuevo.isSelected();
-            boolean revisionTecnica = checkBoxRevisionTecnica.isSelected();
+            boolean esNuevo = checkBoxEsNuevoVehiculo.isSelected();
+            boolean revisionTecnica = checkBoxRevisionTecnicaVehiculo.isSelected();
             String tipoSeleccionado = comboBoxTipoVehiculo.getValue();
+            String numeroPasajeros = textFieldNumeroPasajerosVehiculo.getText().trim();
+            String numeroPuertas = textFieldNumeroPuertasVehiculo.getText().trim();
+            String capacidadMaletero = textFieldCapacidadMaleteroVehiculo.getText().trim();
+            String numeroBolsasDeAire = textFieldNumeroBolsasDeAireVehiculo.getText().trim();
+            String capacidadCajaDeCarga = textFieldCapacidadCajaDeCargaVehiculo.getText().trim();
+            String numeroEjes = textFieldNumeroEjesVehiculo.getText().trim();
+            boolean tieneONoAireAcondicionado = checkBoxtieneONoAireAcondicionadoVehiculo.isSelected();
+            boolean tieneONoCamaraReversa = checkBoxtieneONoCamaraReversaVehiculo.isSelected();
+            boolean tieneONoVelocidadCrucero = checkBoxtieneONoVelocidadCruceroVehiculo.isSelected();
+            boolean tieneONoAbs = checkBoxtieneONoAbsVehiculo.isSelected();
+            boolean tieneONoSensoresColision = checkBoxtieneONoSensoresDeColisionVehiculo.isSelected();
+            boolean tieneONoSensorDeTrafico = checkBoxtieneONoSensorDeTraficoVehiculo.isSelected();
+            boolean tieneONoAsistenteDePermanencia = checkBoxtieneONoAsistenteDePermanenciaVehiculo.isSelected();
+
 
             Vehiculo nuevoVehiculo;
             switch (tipoSeleccionado) {
                 case "Moto":
-                    nuevoVehiculo = new Moto(marca, esNuevo, modelo, "Manual", velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
+                    nuevoVehiculo = new Moto(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
                     break;
                 case "Bus":
-                    String numeroPasajeros = textFieldNumeroPasajeros.getText().trim();
-                    String numeroPuertas = textFieldNumeroPuertas.getText().trim();
-                    String capacidadMaletero = textFieldCapacidadMaletero.getText().trim();
-                    String numeroBolsasDeAire = textFieldBolsasAire.getText().trim();
-                    nuevoVehiculo = new Bus(marca, esNuevo, modelo, "Manual", velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Bus(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
-                default:
+                case "Camion":
+                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, numeroPuertas, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                case "Camioneta":
+                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                case "Deportivo":
+                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
+                    break;
+                case "Pick Ups":
+                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, capacidadCajaDeCarga, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
+                    break;
+                case "Sedan":
+                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
+                    break;
+                case "Vans":
+                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    default:
                     showAlert("Error", "Seleccione un tipo de vehículo.");
                     return;
             }
@@ -187,6 +641,18 @@ public class EmpleadoViewController {
         }
     }
 
+    //-----------------------------------------CLIENTES--------------------------------------------
+
+    // Método para mostrar los datos del cliente en los campos de texto
+    private void mostrarDatosCliente(Cliente cliente) {
+        textFieldNombreCliente.setText(cliente.getNombre());
+        textFieldApellidoCliente.setText(cliente.getApellido());
+        textFieldCorreoCliente.setText(cliente.getCorreo());
+        textFieldTelefonoCliente.setText(cliente.getTelefono());
+        textFieldCedulaCliente.setText(cliente.getCedula());
+        textFieldDireccionCliente.setText(cliente.getDireccion());
+    }
+    
     @FXML
     public void agregarCliente() {
         String nombre = textFieldNombreCliente.getText().trim();
@@ -290,6 +756,8 @@ public class EmpleadoViewController {
             showAlert("Error", "No se pudo eliminar el cliente. Verifique la cédula.");
         }
     }
+
+    //TRANSACCIONES--------------------------------------------------------------------------------------
 
     @FXML
     public void realizarTransaccion() {

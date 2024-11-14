@@ -12,6 +12,7 @@ public class Bus extends Vehiculo{
         this.numeroPuertas=numeroPuertas;
         this.capacidadMaletero=capacidadMaletero;
         this.numeroBolsasDeAire=numeroBolsasDeAire;
+        setTipo("Bus");
     }
 
     public String getNumeroPasajeros() {

@@ -198,6 +198,11 @@ public class Empleado extends Persona {
             "contraseña:" + contraseña;
     }
 
+    public boolean regirstrarEmpleado(Empleado empleado) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'regirstrarEmpleado'");
+    }
+
     
 }
 

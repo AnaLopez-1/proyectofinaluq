@@ -10,6 +10,7 @@ public class Deportivo extends Vehiculo {
         this.numeroPasajeros=numeroPasajeros;
         this.numeroPuertas=numeroPuertas;
         this.numeroBolsasDeAire=numeroBolsasDeAire;
+        setTipo("Deportivo");
     }
 
     public String getNumeroPasajeros() {

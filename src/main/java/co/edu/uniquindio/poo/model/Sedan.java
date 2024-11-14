@@ -7,13 +7,13 @@ public class Sedan extends Vehiculo {
     private boolean tieneONoAireAcondicionado;
     private boolean tieneONoCamaraReversa;
     private boolean tieneONoVelocidadCrucero;
-    private boolean numeroBolsasAire;
+    private String numeroBolsasDeAire;
     private boolean tieneONoAbs;
     private boolean tieneONoSensoresColision;
     private boolean tieneONoSensorDeTrafico;
     private boolean tieneONoAsistenteDePermanencia;
 
-    public Sedan (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, String numeroPasajeros, String numeroPuertas, String capacidadMaletero, boolean tieneONoAireAcondicionado, boolean tieneONoCamaraReversa, boolean tieneONoVelocidadCrucero, boolean numeroBolsasAire, boolean tieneONoAbs, boolean tieneONoSensoresColision, boolean tieneONoSensorDeTrafico, boolean tieneONoAsistenteDePermanencia){
+    public Sedan (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, String numeroPasajeros, String numeroPuertas, String capacidadMaletero, boolean tieneONoAireAcondicionado, boolean tieneONoCamaraReversa, boolean tieneONoVelocidadCrucero, String numeroBolsasDeAire, boolean tieneONoAbs, boolean tieneONoSensoresColision, boolean tieneONoSensorDeTrafico, boolean tieneONoAsistenteDePermanencia){
         super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
         this.numeroPasajeros=numeroPasajeros;
         this.numeroPuertas=numeroPuertas;
@@ -21,11 +21,12 @@ public class Sedan extends Vehiculo {
         this.tieneONoAireAcondicionado=tieneONoAireAcondicionado;
         this.tieneONoCamaraReversa=tieneONoCamaraReversa;
         this.tieneONoVelocidadCrucero=tieneONoVelocidadCrucero;
-        this.numeroBolsasAire=numeroBolsasAire;
+        this.numeroBolsasDeAire=numeroBolsasDeAire;
         this.tieneONoAbs=tieneONoAbs;
         this.tieneONoSensoresColision=tieneONoSensoresColision;
         this.tieneONoSensorDeTrafico=tieneONoSensorDeTrafico;
         this.tieneONoAsistenteDePermanencia=tieneONoAsistenteDePermanencia;
+        setTipo("Sedan");
     }
 
     public String getNumeroPasajeros() {
@@ -76,12 +77,12 @@ public class Sedan extends Vehiculo {
         this.tieneONoVelocidadCrucero = tieneONoVelocidadCrucero;
     }
 
-    public boolean isNumeroBolsasAire() {
-        return numeroBolsasAire;
+    public String isNumeroBolsasDeAire() {
+        return numeroBolsasDeAire;
     }
 
-    public void setNumeroBolsasAire(boolean numeroBolsasAire) {
-        this.numeroBolsasAire = numeroBolsasAire;
+    public void setNumeroBolsasDeAire(String numeroBolsasDeAire) {
+        this.numeroBolsasDeAire = numeroBolsasDeAire;
     }
 
     public boolean isTieneONoAbs() {
@@ -125,7 +126,7 @@ public class Sedan extends Vehiculo {
         System.out.println("Numero bolsas de aire: " + tieneONoAireAcondicionado);
         System.out.println("Numero bolsas de aire: " + tieneONoCamaraReversa);
         System.out.println("Numero bolsas de aire: " + tieneONoVelocidadCrucero);
-        System.out.println("Numero bolsas de aire: " + numeroBolsasAire);
+        System.out.println("Numero bolsas de aire: " + numeroBolsasDeAire);
         System.out.println("Numero bolsas de aire: " + tieneONoAbs);
         System.out.println("Numero bolsas de aire: " + tieneONoSensoresColision);
         System.out.println("Numero bolsas de aire: " + tieneONoSensorDeTrafico);
@@ -141,7 +142,7 @@ public class Sedan extends Vehiculo {
             "tieneONoAireAcondicionado:" + tieneONoAireAcondicionado + "\n" +
             "tieneONoCamaraReversa:" + tieneONoCamaraReversa + "\n" +
             "tieneONoVelocidadCrucero:" + tieneONoVelocidadCrucero + "\n" +
-            "numeroBolsasAire:" + numeroBolsasAire + "\n" +
+            "numeroBolsasAire:" + numeroBolsasDeAire + "\n" +
             "tieneONoAbs=" + tieneONoAbs + "\n" +
             "tieneONoSensoresColision:" + tieneONoSensoresColision + "\n" +
             "tieneONoSensorDeTrafico:" + tieneONoSensorDeTrafico + "\n" +

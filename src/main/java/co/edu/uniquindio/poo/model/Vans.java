@@ -12,6 +12,7 @@ public class Vans extends Vehiculo{
         this.numeroPuertas=numeroPuertas;
         this.capacidadMaletero=capacidadMaletero;
         this.numeroBolsasDeAire=numeroBolsasDeAire;
+        setTipo("Vans");
     }
 
     public String getNumeroPasajeros() {

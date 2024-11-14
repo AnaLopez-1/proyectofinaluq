@@ -42,6 +42,24 @@ public class App extends Application {
         }
     }    
 
+    // Método para cargar la vista de administrador 
+    private void cargarVistaAdministrador(Stage primaryStage) {
+        try {
+            // Cargar la vista de empleado
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/vistaAdministrador.fxml"));
+            AnchorPane root = loader.load(); 
+
+            // Configurar la escena para la vista de administrador
+            Scene scene = new Scene(root, 800, 700);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Gestión de Administrador");
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }   
+
     public static void main(String[] args) {
         launch(args);
     }
