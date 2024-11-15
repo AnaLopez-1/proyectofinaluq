@@ -126,8 +126,6 @@ public abstract class Vehiculo {
         return revisionTecnica;
         }
 
-    public abstract void mostrarAtributosEspecificos();
-
     @Override
     public String toString() {
         return "marca:" + marca + "\n"+ 

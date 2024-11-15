@@ -32,8 +32,8 @@ public class EmpleadoController {
     }
 
     // Método para actualizar un vehículo
-    public boolean actualizarVehiculo(String marca, Vehiculo vehiculo) {
-        return empleado.actualizarVehiculo(marca, vehiculo);
+    public boolean actualizarVehiculo(Vehiculo vehiculoSeleccionado, Vehiculo vehiculo) {
+        return empleado.actualizarVehiculo(vehiculoSeleccionado, vehiculo);
     }
 
     // Método para agregar un cliente

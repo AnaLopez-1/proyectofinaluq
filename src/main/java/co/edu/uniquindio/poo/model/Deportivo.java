@@ -36,14 +36,7 @@ public class Deportivo extends Vehiculo {
     public void setNumeroBolsasDeAire(String numeroBolsasDeAire) {
         this.numeroBolsasDeAire = numeroBolsasDeAire;
     }
-
-    @Override
-    public void mostrarAtributosEspecificos() {
-        System.out.println("Número de pasajeros: " + numeroPasajeros);
-        System.out.println("Número de puertas: " + numeroPuertas);
-        System.out.println("Numero bolsas de aire: " + numeroBolsasDeAire);
-    }
-
+    
     @Override
     public String toString() {
         return super.toString() + "\n" + 

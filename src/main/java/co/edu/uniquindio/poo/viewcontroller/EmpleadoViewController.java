@@ -653,22 +653,22 @@ public class EmpleadoViewController {
                     nuevoVehiculo = new Bus(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                 case "Camion":
-                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, numeroPuertas, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, capacidadCajaDeCarga, numeroEjes);
                     break;
                 case "Camioneta":
-                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                 case "Deportivo":
-                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
+                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
                     break;
                 case "Pick Ups":
-                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, capacidadCajaDeCarga, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
+                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
                     break;
                 case "Sedan":
-                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
+                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
                     break;
                 case "Vans":
-                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                     default:
                     showAlert("Error", "Seleccione un tipo de vehículo.");
@@ -745,7 +745,7 @@ public class EmpleadoViewController {
                     return;
             }
 
-            if (empleadoController.actualizarVehiculo(marca, nuevoVehiculo)) {
+            if (empleadoController.actualizarVehiculo(nuevoVehiculo, nuevoVehiculo)){
                 tableViewVehiculos.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaVehiculos()));
                 showAlert("Vehículo actualizado", "El vehículo ha sido actualizado correctamente.");
             } else {
@@ -815,7 +815,7 @@ public class EmpleadoViewController {
                     return;
             }
 
-            if (empleadoController.eliminarVehiculo(marca)) {
+            if (empleadoController.eliminarVehiculo(marca)){
                 tableViewVehiculos.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaVehiculos()));
                 showAlert("Vehículo actualizado", "El vehículo ha sido actualizado correctamente.");
             } else {
@@ -997,6 +997,28 @@ public class EmpleadoViewController {
         textFieldTelefonoCliente.setText("");
         textFieldCedulaCliente.setText("");
         textFieldDireccionCliente.setText("");
+        textFieldMarcaVehiculo.setText("");
+        textFieldModeloVehiculo.setText("");
+        textFieldCambiosVehiculo.getText().trim();
+        textFieldVelocidadMaximaVehiculo.setText("");
+        textFieldCilindrajeVehiculo.setText("");
+        textFieldCombustibleVehiculo.setText("");
+        textFieldTransmisionVehiculo.setText("");
+        checkBoxEsNuevoVehiculo.setText("");
+        checkBoxRevisionTecnicaVehiculo.setText("");
+        textFieldNumeroPasajerosVehiculo.setText("");
+        textFieldNumeroPuertasVehiculo.setText("");
+        textFieldCapacidadMaleteroVehiculo.setText("");
+        textFieldNumeroBolsasDeAireVehiculo.setText("");
+        textFieldCapacidadCajaDeCargaVehiculo.setText("");
+        textFieldNumeroEjesVehiculo.setText("");
+        checkBoxtieneONoAireAcondicionadoVehiculo.setText("");
+        checkBoxtieneONoCamaraReversaVehiculo.setText("");
+        checkBoxtieneONoVelocidadCruceroVehiculo.setText("");
+        checkBoxtieneONoAbsVehiculo.setText("");
+        checkBoxtieneONoSensoresDeColisionVehiculo.setText("");
+        checkBoxtieneONoSensorDeTraficoVehiculo.setText("");
+        checkBoxtieneONoAsistenteDePermanenciaVehiculo.setText("");
     }
 
     private void showAlert(String title, String message) {

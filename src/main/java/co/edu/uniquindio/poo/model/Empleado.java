@@ -151,10 +151,10 @@ public class Empleado extends Persona {
         return centinela;
     }
 
-    public boolean actualizarVehiculo(String marca, Vehiculo actualizado) {
+    public boolean actualizarVehiculo(Vehiculo vehiculoSeleccionado, Vehiculo actualizado) {
         boolean centinela = false;
         for (Vehiculo vehiculo : vehiculosRegistrados) {
-            if (vehiculo.getMarca().equals(marca)) {
+            if (vehiculo.getMarca().equals(vehiculoSeleccionado)) {
                 vehiculo.setMarca(actualizado.getMarca());
                 vehiculo.setModelo(actualizado.getModelo());
                 centinela = true;
@@ -196,13 +196,6 @@ public class Empleado extends Persona {
             "idEmpleado:" + idEmpleado + "\n" +
             "salario:" + salario + "\n" +
             "contraseña:" + contraseña;
-    }
-
-    public boolean regirstrarEmpleado(Empleado empleado) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'regirstrarEmpleado'");
-    }
-
-    
+    } 
 }
 

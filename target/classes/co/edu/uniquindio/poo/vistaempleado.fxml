@@ -27,7 +27,7 @@
 
                                 <!-- Atributos específicos de los vehículos -->
                                 <Label fx:id="labelMarca" layoutX="69.0" layoutY="282.0" text="Marca:" />
-                                <TextField fx:id="textFieldMarcaVehiculo" layoutX="108.0" layoutY="391.0" />
+                                <TextField fx:id="textFieldMarcaVehiculo" layoutX="108.0" layoutY="283.0" />
 
                                 <Label fx:id="labelEsNuevo" layoutX="716.0" layoutY="295.0" text="Es Nuevo:" />
                                 <CheckBox fx:id="checkBoxEsNuevoVehiculo" layoutX="775.0" layoutY="295.0" />
@@ -46,7 +46,7 @@
 
                                 <!-- Atributos adicionales -->
                                 <Label fx:id="labelVelocidadMaxima" layoutX="7.0" layoutY="399.0" text="Velocidad Máxima:" />
-                                <TextField fx:id="textFieldVelocidadMaximaVehiculo" layoutX="108.0" layoutY="278.0" />
+                                <TextField fx:id="textFieldVelocidadMaximaVehiculo" layoutX="108.0" layoutY="395.0" />
 
                                 <Label fx:id="labelTransmision" layoutX="36.0" layoutY="508.0" text="Transmisión:" />
                                 <TextField fx:id="textFieldTransmisionVehiculo" layoutX="108.0" layoutY="504.0" />
@@ -98,7 +98,7 @@
                                 <Button fx:id="btnAgregarVehiculo" layoutX="292.0" layoutY="504.0" onAction="#agregarVehiculo" text="Agregar Vehículo" />
                   
                                 <!-- Tabla de Vehículos -->
-                                <TableView fx:id="tableViewVehiculos" layoutX="102.0" layoutY="65.0" prefHeight="150.0" prefWidth="625.0">
+                                <TableView fx:id="tableViewVehiculos" layoutX="60.0" layoutY="74.0" prefHeight="150.0" prefWidth="624.0">
                                     <columns>
                                         <TableColumn fx:id="columnaMarca" prefWidth="39.0" text="Marca" />
                                         <TableColumn fx:id="columnaModelo" prefWidth="49.0" text="Modelo" />

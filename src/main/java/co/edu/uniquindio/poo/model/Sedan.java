@@ -118,22 +118,6 @@ public class Sedan extends Vehiculo {
     }
 
     @Override
-    public void mostrarAtributosEspecificos() {
-        // Aquí defines cómo mostrar los atributos específicos de un Auto
-        System.out.println("Número de pasajeros: " + numeroPasajeros);
-        System.out.println("Número de puertas: " + numeroPuertas);
-        System.out.println("Capacidad del maletero: " + capacidadMaletero);
-        System.out.println("Numero bolsas de aire: " + tieneONoAireAcondicionado);
-        System.out.println("Numero bolsas de aire: " + tieneONoCamaraReversa);
-        System.out.println("Numero bolsas de aire: " + tieneONoVelocidadCrucero);
-        System.out.println("Numero bolsas de aire: " + numeroBolsasDeAire);
-        System.out.println("Numero bolsas de aire: " + tieneONoAbs);
-        System.out.println("Numero bolsas de aire: " + tieneONoSensoresColision);
-        System.out.println("Numero bolsas de aire: " + tieneONoSensorDeTrafico);
-        System.out.println("Numero bolsas de aire: " + tieneONoAsistenteDePermanencia);
-    }
-
-    @Override
     public String toString() {
         return super.toString() + "\n" + 
             "numeroPasajeros:" + numeroPasajeros + "\n" +

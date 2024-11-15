@@ -16,10 +16,4 @@ public class Moto extends Vehiculo{
             "velocidadMaxima=" + getVelocidadMaxima() + "\n" +
             "cilindraje=" + getCilindraje();
     }
-
-    @Override
-    public void mostrarAtributosEspecificos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mostrarAtributosEspecificos'");
-    }
 }

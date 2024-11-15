@@ -28,12 +28,6 @@ public class Camion extends Vehiculo{
     }
 
     @Override
-    public void mostrarAtributosEspecificos() {
-        System.out.println("Capacidad del maletero: " + capacidadDeCarga);
-        System.out.println("Numero bolsas de aire: " + numeroEjes);
-    }
-
-    @Override
     public String toString() {
         return super.toString() + "\n" + 
             "capacidadDeCarga:" + capacidadDeCarga + "\n" +

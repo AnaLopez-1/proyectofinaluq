@@ -48,15 +48,6 @@ public class Vans extends Vehiculo{
     }
 
     @Override
-    public void mostrarAtributosEspecificos() {
-        // Aquí defines cómo mostrar los atributos específicos de un Auto
-        System.out.println("Número de pasajeros: " + numeroPasajeros);
-        System.out.println("Número de puertas: " + numeroPuertas);
-        System.out.println("Capacidad del maletero: " + capacidadMaletero);
-        System.out.println("Numero bolsas de aire: " + numeroBolsasDeAire);
-    }
-
-    @Override
     public String toString() {
         return super.toString() + "\n" + 
                 "numeroPasajeros:" + numeroPasajeros + "\n" +
