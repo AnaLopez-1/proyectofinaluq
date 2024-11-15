@@ -95,6 +95,34 @@ public class EmpleadoViewController {
     @FXML
     private TableColumn<Vehiculo, String> columnaTransmision;
     @FXML
+    private TableColumn<Vehiculo, String> columnaRevisionTecnica;
+    @FXML
+    private TableColumn<Vehiculo, Boolean> columnaEsNuevo;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaMaletero;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaBolsasAire;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaPasajeros;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaPuertas;
+    @FXML
+    private TableColumn<Vehiculo, Boolean> columnaAcondicionado;
+    @FXML
+    private TableColumn<Vehiculo, Boolean> columnaCamaraReversa;
+    @FXML
+    private TableColumn<Vehiculo, Boolean> columnaVelocidadCrucero;
+    @FXML
+    private TableColumn<Vehiculo, Boolean> columnaAbs;
+    @FXML
+    private TableColumn<Vehiculo, Boolean> columnaSensoresColision;
+    @FXML
+    private TableColumn<Vehiculo, Boolean> columnaSensoresTrafico;
+    @FXML
+    private TableColumn<Vehiculo, Boolean> columnaAsistentePermanencia;
+    @FXML
+    private TableColumn<Vehiculo, String> columnaEjes;
+    @FXML
     private TextField textFieldNumeroPasajerosVehiculo;
     @FXML
     private TextField textFieldNumeroPuertasVehiculo;
@@ -225,6 +253,22 @@ public class EmpleadoViewController {
         columnaCilindraje.setCellValueFactory(new PropertyValueFactory<>("Cilindraje"));
         columnaCombustible.setCellValueFactory(new PropertyValueFactory<>("Combustible"));
         columnaTransmision.setCellValueFactory(new PropertyValueFactory<>("Transmision"));
+
+        columnaRevisionTecnica.setCellValueFactory(new PropertyValueFactory<>("Revision Tecnica"));
+        columnaEsNuevo.setCellValueFactory(new PropertyValueFactory<>("Es nuevo"));
+        columnaMaletero.setCellValueFactory(new PropertyValueFactory<>("Capacidad maletero"));
+        columnaBolsasAire.setCellValueFactory(new PropertyValueFactory<>("Bolsas de aire"));
+        columnaPasajeros.setCellValueFactory(new PropertyValueFactory<>("Número de pasajero"));
+        columnaPuertas.setCellValueFactory(new PropertyValueFactory<>("Número de puertas"));
+        columnaAcondicionado.setCellValueFactory(new PropertyValueFactory<>("Aire acondicionado"));
+        columnaCamaraReversa.setCellValueFactory(new PropertyValueFactory<>(""));
+        columnaVelocidadCrucero.setCellValueFactory(new PropertyValueFactory<>(""));
+        columnaAbs.setCellValueFactory(new PropertyValueFactory<>("Cámara reversa"));
+        columnaSensoresColision.setCellValueFactory(new PropertyValueFactory<>("Sensores de colisión"));
+        columnaSensoresTrafico.setCellValueFactory(new PropertyValueFactory<>("Sensores de tráfico"));
+        columnaAsistentePermanencia.setCellValueFactory(new PropertyValueFactory<>("Asistente de permanencia"));
+        columnaEjes.setCellValueFactory(new PropertyValueFactory<>("Número de ejes"));
+
 
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
         columnaApellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
@@ -577,7 +621,7 @@ public class EmpleadoViewController {
         try {
             String marca = textFieldMarcaVehiculo.getText().trim();
             String modelo = textFieldModeloVehiculo.getText().trim();
-            String cambios = textFieldModeloVehiculo.getText().trim();
+            String cambios = textFieldCambiosVehiculo.getText().trim();
             String velocidadMaxima = textFieldVelocidadMaximaVehiculo.getText().trim();
             String cilindraje = textFieldCilindrajeVehiculo.getText().trim();
             String combustible = textFieldCombustibleVehiculo.getText().trim();
@@ -625,6 +669,7 @@ public class EmpleadoViewController {
                     break;
                 case "Vans":
                     nuevoVehiculo = new Vans(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    break;
                     default:
                     showAlert("Error", "Seleccione un tipo de vehículo.");
                     return;
@@ -635,6 +680,146 @@ public class EmpleadoViewController {
                 showAlert("Vehículo agregado", "El vehículo ha sido agregado correctamente.");
             } else {
                 showAlert("Error", "No se pudo agregar el vehículo.");
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Por favor, verifique los valores numéricos ingresados.");
+        }
+    }
+
+    @FXML
+    public void actualizarVehiculo() {
+        try {
+            String marca = textFieldMarcaVehiculo.getText().trim();
+            String modelo = textFieldModeloVehiculo.getText().trim();
+            String cambios = textFieldCambiosVehiculo.getText().trim();
+            String velocidadMaxima = textFieldVelocidadMaximaVehiculo.getText().trim();
+            String cilindraje = textFieldCilindrajeVehiculo.getText().trim();
+            String combustible = textFieldCombustibleVehiculo.getText().trim();
+            String transmision = textFieldTransmisionVehiculo.getText().trim();
+            boolean esNuevo = checkBoxEsNuevoVehiculo.isSelected();
+            boolean revisionTecnica = checkBoxRevisionTecnicaVehiculo.isSelected();
+            String tipoSeleccionado = comboBoxTipoVehiculo.getValue();
+            String numeroPasajeros = textFieldNumeroPasajerosVehiculo.getText().trim();
+            String numeroPuertas = textFieldNumeroPuertasVehiculo.getText().trim();
+            String capacidadMaletero = textFieldCapacidadMaleteroVehiculo.getText().trim();
+            String numeroBolsasDeAire = textFieldNumeroBolsasDeAireVehiculo.getText().trim();
+            String capacidadCajaDeCarga = textFieldCapacidadCajaDeCargaVehiculo.getText().trim();
+            String numeroEjes = textFieldNumeroEjesVehiculo.getText().trim();
+            boolean tieneONoAireAcondicionado = checkBoxtieneONoAireAcondicionadoVehiculo.isSelected();
+            boolean tieneONoCamaraReversa = checkBoxtieneONoCamaraReversaVehiculo.isSelected();
+            boolean tieneONoVelocidadCrucero = checkBoxtieneONoVelocidadCruceroVehiculo.isSelected();
+            boolean tieneONoAbs = checkBoxtieneONoAbsVehiculo.isSelected();
+            boolean tieneONoSensoresColision = checkBoxtieneONoSensoresDeColisionVehiculo.isSelected();
+            boolean tieneONoSensorDeTrafico = checkBoxtieneONoSensorDeTraficoVehiculo.isSelected();
+            boolean tieneONoAsistenteDePermanencia = checkBoxtieneONoAsistenteDePermanenciaVehiculo.isSelected();
+
+
+            Vehiculo nuevoVehiculo;
+            switch (tipoSeleccionado) {
+                case "Moto":
+                    nuevoVehiculo = new Moto(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
+                    break;
+                case "Bus":
+                    nuevoVehiculo = new Bus(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                case "Camion":
+                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, numeroPuertas, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                case "Camioneta":
+                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                case "Deportivo":
+                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
+                    break;
+                case "Pick Ups":
+                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, capacidadCajaDeCarga, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
+                    break;
+                case "Sedan":
+                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
+                    break;
+                case "Vans":
+                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                    default:
+                    showAlert("Error", "Seleccione un tipo de vehículo.");
+                    return;
+            }
+
+            if (empleadoController.actualizarVehiculo(marca, nuevoVehiculo)) {
+                tableViewVehiculos.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaVehiculos()));
+                showAlert("Vehículo actualizado", "El vehículo ha sido actualizado correctamente.");
+            } else {
+                showAlert("Error", "No se pudo actualizar el vehículo.");
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Por favor, verifique los valores numéricos ingresados.");
+        }
+    }
+
+    @FXML
+    public void eliminarVehiculo() {
+        try {
+            String marca = textFieldMarcaVehiculo.getText().trim();
+            String modelo = textFieldModeloVehiculo.getText().trim();
+            String cambios = textFieldCambiosVehiculo.getText().trim();
+            String velocidadMaxima = textFieldVelocidadMaximaVehiculo.getText().trim();
+            String cilindraje = textFieldCilindrajeVehiculo.getText().trim();
+            String combustible = textFieldCombustibleVehiculo.getText().trim();
+            String transmision = textFieldTransmisionVehiculo.getText().trim();
+            boolean esNuevo = checkBoxEsNuevoVehiculo.isSelected();
+            boolean revisionTecnica = checkBoxRevisionTecnicaVehiculo.isSelected();
+            String tipoSeleccionado = comboBoxTipoVehiculo.getValue();
+            String numeroPasajeros = textFieldNumeroPasajerosVehiculo.getText().trim();
+            String numeroPuertas = textFieldNumeroPuertasVehiculo.getText().trim();
+            String capacidadMaletero = textFieldCapacidadMaleteroVehiculo.getText().trim();
+            String numeroBolsasDeAire = textFieldNumeroBolsasDeAireVehiculo.getText().trim();
+            String capacidadCajaDeCarga = textFieldCapacidadCajaDeCargaVehiculo.getText().trim();
+            String numeroEjes = textFieldNumeroEjesVehiculo.getText().trim();
+            boolean tieneONoAireAcondicionado = checkBoxtieneONoAireAcondicionadoVehiculo.isSelected();
+            boolean tieneONoCamaraReversa = checkBoxtieneONoCamaraReversaVehiculo.isSelected();
+            boolean tieneONoVelocidadCrucero = checkBoxtieneONoVelocidadCruceroVehiculo.isSelected();
+            boolean tieneONoAbs = checkBoxtieneONoAbsVehiculo.isSelected();
+            boolean tieneONoSensoresColision = checkBoxtieneONoSensoresDeColisionVehiculo.isSelected();
+            boolean tieneONoSensorDeTrafico = checkBoxtieneONoSensorDeTraficoVehiculo.isSelected();
+            boolean tieneONoAsistenteDePermanencia = checkBoxtieneONoAsistenteDePermanenciaVehiculo.isSelected();
+
+
+            Vehiculo nuevoVehiculo;
+            switch (tipoSeleccionado) {
+                case "Moto":
+                    nuevoVehiculo = new Moto(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
+                    break;
+                case "Bus":
+                    nuevoVehiculo = new Bus(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                case "Camion":
+                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, numeroPuertas, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                case "Camioneta":
+                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                case "Deportivo":
+                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
+                    break;
+                case "Pick Ups":
+                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, capacidadCajaDeCarga, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
+                    break;
+                case "Sedan":
+                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
+                    break;
+                case "Vans":
+                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, numeroEjes, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    break;
+                    default:
+                    showAlert("Error", "Seleccione un tipo de vehículo.");
+                    return;
+            }
+
+            if (empleadoController.eliminarVehiculo(marca)) {
+                tableViewVehiculos.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaVehiculos()));
+                showAlert("Vehículo actualizado", "El vehículo ha sido actualizado correctamente.");
+            } else {
+                showAlert("Error", "No se pudo actualizar el vehículo.");
             }
         } catch (NumberFormatException e) {
             showAlert("Error", "Por favor, verifique los valores numéricos ingresados.");
