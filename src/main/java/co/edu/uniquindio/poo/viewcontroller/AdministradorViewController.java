@@ -1,132 +1,247 @@
 package co.edu.uniquindio.poo.viewcontroller;
 
-    
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import co.edu.uniquindio.poo.model.Cliente;
+import javafx.scene.control.cell.PropertyValueFactory;
+import co.edu.uniquindio.poo.controller.AdministradorController;
+import co.edu.uniquindio.poo.model.Administrador;
 import co.edu.uniquindio.poo.model.Empleado;
-import javafx.event.ActionEvent;  
+import javafx.event.ActionEvent;
+
 
 public class AdministradorViewController {
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
+    private Empleado empleadoSeleccionado;
+    private AdministradorController administradorController;
 
-    @FXML // fx:id="textFieldIdEmpleado"
-    private TextField textFieldIdEmpleado; // Value injected by FXMLLoader
+    @FXML 
+    private TextField textFieldIdEmpleado; 
+    @FXML
+    private ObservableList<Empleado> listaEmpleados = FXCollections.observableArrayList(); 
+    @FXML 
+    private TableColumn<Empleado, String> columnaTelefono; 
+    @FXML 
+    private TableColumn<Empleado, String> columnaCorreo; 
 
-    @FXML // fx:id="columnaTelefono"
-    private TableColumn<?, ?> columnaTelefono; // Value injected by FXMLLoader
+    @FXML 
+    private TableView<Empleado> tableViewEmpleado; 
 
-    @FXML // fx:id="columnaCorreo"
-    private TableColumn<?, ?> columnaCorreo; // Value injected by FXMLLoader
+    @FXML 
+    private DatePicker textFieldPeriodoDeTiempoEmpleado; 
 
-    @FXML // fx:id="tableViewEmpleado"
-    private TableView<?> tableViewEmpleado; // Value injected by FXMLLoader
+    @FXML 
+    private TableColumn<Empleado, String> columnaApellido; 
+    
+    @FXML 
+    private TableColumn<Empleado, String> columnaEstado; 
 
-    @FXML // fx:id="textFieldPeriodoDeTiempoEmpleado"
-    private DatePicker textFieldPeriodoDeTiempoEmpleado; // Value injected by FXMLLoader
+    @FXML 
+    private TextField textFieldTelefonoEmpleado; 
 
-    @FXML // fx:id="columnaApellidos"
-    private TableColumn<?, ?> columnaApellidos; // Value injected by FXMLLoader
+    @FXML 
+    private TextField textFieldIsBlocked;
 
-    @FXML // fx:id="textFieldTelefonoEmpleado"
-    private TextField textFieldTelefonoEmpleado; // Value injected by FXMLLoader
+    @FXML 
+    private TextField textFieldApellidoEmpleado; 
 
-    @FXML // fx:id="textFieldApellidosEmpleado"
-    private TextField textFieldApellidosEmpleado; // Value injected by FXMLLoader
+    @FXML 
+    private TextField textFieldCorreoEmpleado; 
 
-    @FXML // fx:id="textFieldCorreoEmpleado"
-    private TextField textFieldCorreoEmpleado; // Value injected by FXMLLoader
+    @FXML 
+    private Button btnlimparCampos; 
 
-    @FXML // fx:id="btnLimparCampos"
-    private Button btnLimparCampos; // Value injected by FXMLLoader
+    @FXML 
+    private TableColumn<Empleado, String> columnaId; 
 
-    @FXML // fx:id="columnaId"
-    private TableColumn<?, ?> columnaId; // Value injected by FXMLLoader
+    @FXML 
+    private Button btnactualizarEmpleado; 
 
-    @FXML // fx:id="btnActualizarEmpleado"
-    private Button btnActualizarEmpleado; // Value injected by FXMLLoader
+    @FXML 
+    private TextField textFieldNombreEmpleado; 
 
-    @FXML // fx:id="textFieldNombreEmpleado"
-    private TextField textFieldNombreEmpleado; // Value injected by FXMLLoader
+    @FXML 
+    private Button btnGeneracionDeReporte; 
+    @FXML 
+    private Button btnregistrarEmpleado; 
 
-    @FXML // fx:id="btnGeneracionDeReporte"
-    private Button btnGeneracionDeReporte; // Value injected by FXMLLoader
+    @FXML 
+    private Button btnbloquearEmpleado; 
 
-    @FXML // fx:id="btnRegistrarEmpleado"
-    private Button btnRegistrarEmpleado; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btnBloquearEmpleado"
-    private Button btnBloquearEmpleado; // Value injected by FXMLLoader
-
-    @FXML // fx:id="columnaNombre"
-    private TableColumn<?, ?> columnaNombre; // Value injected by FXMLLoader
+    @FXML 
+    private TableColumn<Empleado, String> columnaNombre; 
+    @FXML
+    private TextField nombre;
+    @FXML
+    private TextField apellido;
+    @FXML
+    private TextField correo;
+    @FXML
+    private TextField telefono;
+    @FXML
+    private TextField cedula;
+    @FXML
+    private TextField direccion;
+    @FXML
+    private TextField idEmpleado;
+    @FXML
+    private TextField salario;
+    @FXML
+    private TextField contraseña;
+    @FXML
+    private TextField isBlocked;
 
     @FXML
-    void RegistrarEmpleado(ActionEvent event) {
-
-    }
-
-    @FXML
-    void ActualizarEmpleado(ActionEvent event) {
-
-    }
-
-    @FXML
-    void BloquearEmpleado(ActionEvent event) {
-
-    }
-
-    @FXML
-    void LImpiarCampos(ActionEvent event) {
-
-    }
-
-    @FXML
-    void GeneracionDeReporte(ActionEvent event) {
-
-    }
-
-    @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert textFieldIdEmpleado != null : "fx:id=\"textFieldIdEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert columnaTelefono != null : "fx:id=\"columnaTelefono\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert columnaCorreo != null : "fx:id=\"columnaCorreo\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert tableViewEmpleado != null : "fx:id=\"tableViewEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert textFieldPeriodoDeTiempoEmpleado != null : "fx:id=\"textFieldPeriodoDeTiempoEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert columnaApellidos != null : "fx:id=\"columnaApellidos\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert textFieldTelefonoEmpleado != null : "fx:id=\"textFieldTelefonoEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert textFieldApellidosEmpleado != null : "fx:id=\"textFieldApellidosEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert textFieldCorreoEmpleado != null : "fx:id=\"textFieldCorreoEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert btnLimparCampos != null : "fx:id=\"btnLimparCampos\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert columnaId != null : "fx:id=\"columnaId\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert btnActualizarEmpleado != null : "fx:id=\"btnActualizarEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert textFieldNombreEmpleado != null : "fx:id=\"textFieldNombreEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert btnGeneracionDeReporte != null : "fx:id=\"btnGeneracionDeReporte\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert btnRegistrarEmpleado != null : "fx:id=\"btnRegistrarEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert btnBloquearEmpleado != null : "fx:id=\"btnBloquearEmpleado\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
-        assert columnaNombre != null : "fx:id=\"columnaNombre\" was not injected: check your FXML file 'vistaadministrador.fxml'.";
 
+        Administrador administrador = new Administrador("Juan", "Perez", "juan@example.com", "123456789", "E001", "3000", "password123");
+        administradorController = new AdministradorController(administrador);
+        
+        tableViewEmpleado.setItems(FXCollections.observableArrayList(administradorController.obtenerListaEmpleados()));
+
+        // Configuración de las columnas de la tabla
+        columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+        columnaApellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
+        columnaTelefono.setCellValueFactory(new PropertyValueFactory<>("Telefono"));
+        columnaCorreo.setCellValueFactory(new PropertyValueFactory<>("Correo"));
+        columnaId.setCellValueFactory(new PropertyValueFactory<>("idEmpleado"));
+        columnaEstado.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().isBlocked() ? "Bloqueado" : "Activo");
+    });
+
+        tableViewEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            empleadoSeleccionado = newValue;
+            if (empleadoSeleccionado != null) {
+                mostrarDatosEmpleado(empleadoSeleccionado);
+            }
+        });
     }
+
     private void mostrarDatosEmpleado(Empleado empleado) {
-      this.textFieldNombreEmpleado.setText(empleado.getNombre());
-      this.textFieldApellidosEmpleado.setText(empleado.getApellido());
-      this.textFieldCorreoEmpleado.setText(empleado.getCorreo());
-      this.textFieldTelefonoEmpleado.setText(empleado.getTelefono());
-      this.textFieldIdEmpleado.setText(empleado.getIdEmpleado());
+        textFieldNombreEmpleado.setText(empleado.getNombre());
+        textFieldApellidoEmpleado.setText(empleado.getApellido());
+        textFieldCorreoEmpleado.setText(empleado.getCorreo());
+        textFieldTelefonoEmpleado.setText(empleado.getTelefono());
+        textFieldIdEmpleado.setText(empleado.getIdEmpleado());
+        textFieldIsBlocked.setText(empleado.isBlocked() ? "Bloqueado" : "Activo");
+    }
+
+    // Método para registrar empleado
+    @FXML
+    public void registrarEmpleado() {
+        String nombre = textFieldNombreEmpleado.getText();
+        String apellido = textFieldApellidoEmpleado.getText();
+        String telefono = textFieldTelefonoEmpleado.getText();
+        String correo = textFieldCorreoEmpleado.getText();
+        String idEmpleado = textFieldIdEmpleado.getText();
+
+        if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || correo.isEmpty() || idEmpleado.isEmpty()) {
+            showAlert("Error", "Todos los campos son obligatorios.");
+            return;
+        }
+
+        Empleado empleado = new Empleado(nombre, apellido, correo, telefono, idEmpleado, correo, idEmpleado, false);
+
+
+        if (administradorController.registrarEmpleado(empleado)) {
+            tableViewEmpleado.setItems(FXCollections.observableArrayList(administradorController.obtenerListaEmpleados()));
+            showAlert("Empleado Registrado", "El empleado ha sido registrado correctamente");
+        } else {
+            showAlert("Error", "No se pudo registrar el empleado");
+        }
+    }
+
+    // Método para actualizar empleado
+
+    @FXML
+    public void actualizarEmpleado() {
+        String nombre = textFieldNombreEmpleado.getText();
+        String apellido = textFieldApellidoEmpleado.getText();
+        String telefono = textFieldTelefonoEmpleado.getText();
+        String correo = textFieldCorreoEmpleado.getText();
+        String idEmpleado = textFieldIdEmpleado.getText();
+
+        if (idEmpleado.isEmpty()) {
+            showAlert("Error", "El id está vacío");
+            return;
+        }
+
+        Empleado empleadoExistente = null;
+        for (Empleado empleado : administradorController.obtenerListaEmpleados()) {
+            if (empleado.getIdEmpleado().equals(idEmpleado)) {
+                empleadoExistente = empleado;
+                break;
+            }
+        }
+
+        if (empleadoExistente != null) {
+            empleadoExistente.setNombre(nombre);
+            empleadoExistente.setApellido(apellido);
+            empleadoExistente.setTelefono(telefono);
+            empleadoExistente.setCorreo(correo);
+
+            showAlert("Empleado actualizado", "El empleado ha sido actualizado correctamente");
+            tableViewEmpleado.refresh(); // Refresca para asegurar la visualización
+        } else {
+            showAlert("Error", "No se encontró un empleado con ese id");
+        }
+    }
+
+    // Método para bloquear o desbloquear al empleado
+    @FXML
+    public void bloquearEmpleado() {
+        String idEmpleado = textFieldIdEmpleado.getText(); // Obtener el id del campo de texto
+
+        if (idEmpleado.isEmpty()) {
+            showAlert("Error", "El ID del empleado no puede estar vacío.");
+            return;
+        }
+
+        boolean encontrado = false;
+        for (Empleado empleado : administradorController.obtenerListaEmpleados()) {
+            if (empleado.getIdEmpleado().equals(idEmpleado)) {
+                encontrado = true;
+                if (empleado.isBlocked()) {
+                    showAlert("Error", "El empleado ya está bloqueado.");
+                } else {
+                    // Bloquear al empleado
+                    empleado.setBlocked(true);
+                    showAlert("Empleado Bloqueado", "El empleado ha sido bloqueado exitosamente.");
+                    // Actualizar la interfaz de usuario (ej. la tabla)
+                    tableViewEmpleado.setItems(FXCollections.observableArrayList(administradorController.obtenerListaEmpleados()));
+                    tableViewEmpleado.refresh();
+                }
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            showAlert("Error", "Empleado no encontrado.");
+        }
+    }
+
+    // Método para limpiar campos
+    @FXML
+    private void limpiarCampos() {
+        textFieldNombreEmpleado.clear();
+        textFieldApellidoEmpleado.clear();
+        textFieldTelefonoEmpleado.clear();
+        textFieldCorreoEmpleado.clear();
+        textFieldIdEmpleado.clear();
+    }
+
+    // Método para mostrar alertas
+    private void showAlert(String titulo, String contenido) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setContentText(contenido);
+        alerta.showAndWait();
     }
 }
-  
-   
-

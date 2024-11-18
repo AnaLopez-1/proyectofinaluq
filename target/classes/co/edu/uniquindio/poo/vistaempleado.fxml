@@ -29,7 +29,7 @@
                                 <Label fx:id="labelMarca" layoutX="69.0" layoutY="282.0" text="Marca:" />
                                 <TextField fx:id="textFieldMarcaVehiculo" layoutX="108.0" layoutY="283.0" />
 
-                                <Label fx:id="labelEsNuevo" layoutX="716.0" layoutY="295.0" text="Es Nuevo:" />
+                                <Label fx:id="labelEsNuevo" layoutX="716.0" layoutY="295.0" text="esNuevo:" />
                                 <CheckBox fx:id="checkBoxEsNuevoVehiculo" layoutX="775.0" layoutY="295.0" />
 
                                 <Label fx:id="labelModelo" layoutX="55.0" layoutY="318.0" text="Modelo:" />
@@ -39,17 +39,17 @@
                                 <TextField fx:id="textFieldCambiosVehiculo" layoutX="108.0" layoutY="355.0" />
 
                                 <Label fx:id="labelCilindraje" layoutX="51.0" layoutY="434.0" text="Cilindraje:" />
-                                <TextField fx:id="textFieldCilindrajeVehiculo" layoutX="108.0" layoutY="430.0" />
+                                <TextField fx:id="textFieldCilindrajeVehiculo" layoutX="108.0" layoutY="435.0" />
 
                                 <Label fx:id="labelCombustible" layoutX="34.0" layoutY="471.0" text="Combustible:" />
                                 <TextField fx:id="textFieldCombustibleVehiculo" layoutX="108.0" layoutY="467.0" />
 
                                 <!-- Atributos adicionales -->
-                                <Label fx:id="labelVelocidadMaxima" layoutX="7.0" layoutY="399.0" text="Velocidad Máxima:" />
+                                <Label fx:id="labelVelocidadMaxima" layoutX="7.0" layoutY="399.0" text="VelocidadMaxima:" />
                                 <TextField fx:id="textFieldVelocidadMaximaVehiculo" layoutX="108.0" layoutY="395.0" />
 
                                 <Label fx:id="labelTransmision" layoutX="36.0" layoutY="508.0" text="Transmisión:" />
-                                <TextField fx:id="textFieldTransmisionVehiculo" layoutX="108.0" layoutY="504.0" />
+                                <TextField fx:id="textFieldTransmisionVehiculo" layoutX="106.0" layoutY="504.0" />
 
                                 <Label fx:id="labelNumeroPuertas" layoutX="293.0" layoutY="287.0" text="Número de puertas:" />
                                 <TextField fx:id="textFieldNumeroPuertasVehiculo" layoutX="400.0" layoutY="283.0" />
@@ -82,7 +82,7 @@
                                 <Label fx:id="labeltieneONoVelocidadCrucero" layoutX="674.0" layoutY="484.0" text="Velocidad crucero:" />
                                 <CheckBox fx:id="checkBoxtieneONoVelocidadCruceroVehiculo" layoutX="775.0" layoutY="484.0" />
 
-                                <Label fx:id="labeltieneONoAbs" layoutX="714.0" layoutY="408.0" text="Tiene ABS:" />
+                                <Label fx:id="labeltieneONoAbs" layoutX="714.0" layoutY="408.0" text="ABS:" />
                                 <CheckBox fx:id="checkBoxtieneONoAbsVehiculo" layoutX="775.0" layoutY="408.0" />
 
                                 <Label fx:id="labeltieneONoSensoresDeColision" layoutX="662.0" layoutY="434.0" text="Sensores de colisión:" />
@@ -108,7 +108,7 @@
                               <TableColumn fx:id="columnaCombustible" prefWidth="76.0" text="Combustible" />
                               <TableColumn fx:id="columnaTransmision" prefWidth="74.0" text="Transmision" />
                               <TableColumn fx:id="columnaRevisionTecnica" minWidth="7.0" prefWidth="98.0" text="Revision tecnica" />
-                              <TableColumn fx:id="columnaEsNuevo" minWidth="3.0" prefWidth="55.0" text="¿Nuevo?" />
+                              <TableColumn fx:id="columnaEsNuevo" minWidth="3.0" prefWidth="55.0" text="Es Nuevo" />
                               <TableColumn fx:id="columnaMaletero" prefWidth="58.0" text="Maletero" />
                               <TableColumn fx:id="columnaBolsasAire" minWidth="0.0" prefWidth="70.0" text="BolsasAire" />
                               <TableColumn fx:id="columnaPasajeros" minWidth="0.0" prefWidth="62.0" text="Pasajeros" />
@@ -123,7 +123,6 @@
                               <TableColumn fx:id="columnaEjes" minWidth="0.0" prefWidth="35.0" text="Ejes" />
                                     </columns>
                                 </TableView>
-                        <Button fx:id="btnActualizarVehiculo" layoutX="416.0" layoutY="496.0" mnemonicParsing="false" onAction="#actualizarVehiculo" text="Actualizar Vehiculo" />
                         <Button fx:id="btnEliminarVehiculo" layoutX="542.0" layoutY="504.0" mnemonicParsing="false" onAction="#eliminarVehiculo" text="Eliminar Vehiculo" />
                         <Button fx:id="btnLimpiarCampos" layoutX="416.0" layoutY="534.0" mnemonicParsing="false" onAction="#limpiarCampos" text="Limpiar Campos" />
                             </children>

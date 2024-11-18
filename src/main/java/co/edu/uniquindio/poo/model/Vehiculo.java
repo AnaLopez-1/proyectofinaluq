@@ -48,10 +48,6 @@ public abstract class Vehiculo {
         this.marca = marca;
     }
 
-    public String getEsNuevo() {
-        return modelo;
-    }
-    
     public boolean isEsNuevo() {
         return esNuevo;
     }

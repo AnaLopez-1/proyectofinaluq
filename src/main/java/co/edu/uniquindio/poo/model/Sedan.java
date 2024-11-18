@@ -116,21 +116,5 @@ public class Sedan extends Vehiculo {
     public void setTieneONoAsistenteDePermanencia(boolean tieneONoAsistenteDePermanencia) {
         this.tieneONoAsistenteDePermanencia = tieneONoAsistenteDePermanencia;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "\n" + 
-            "numeroPasajeros:" + numeroPasajeros + "\n" +
-            "numeroPuertas:" + numeroPuertas + "\n" +
-            "capacidadMaletero:" + capacidadMaletero + "\n" +
-            "tieneONoAireAcondicionado:" + tieneONoAireAcondicionado + "\n" +
-            "tieneONoCamaraReversa:" + tieneONoCamaraReversa + "\n" +
-            "tieneONoVelocidadCrucero:" + tieneONoVelocidadCrucero + "\n" +
-            "numeroBolsasAire:" + numeroBolsasDeAire + "\n" +
-            "tieneONoAbs=" + tieneONoAbs + "\n" +
-            "tieneONoSensoresColision:" + tieneONoSensoresColision + "\n" +
-            "tieneONoSensorDeTrafico:" + tieneONoSensorDeTrafico + "\n" +
-            "tieneONoAsistenteDePermanencia:" + tieneONoAsistenteDePermanencia;
-    }
 }
 

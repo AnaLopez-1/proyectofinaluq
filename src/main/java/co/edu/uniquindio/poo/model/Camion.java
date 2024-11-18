@@ -26,12 +26,5 @@ public class Camion extends Vehiculo{
     public void setNumeroEjes(String numeroEjes) {
         this.numeroEjes = numeroEjes;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "\n" + 
-            "capacidadDeCarga:" + capacidadDeCarga + "\n" +
-            "numeroEjes:" + numeroEjes;
-    }
 }
 

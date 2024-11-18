@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -24,41 +25,36 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="565.0">
                            <children>
-                              <Text layoutX="24.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Empleados " wrappingWidth="77.224609375">
+                              <Text fx:id="labelEmpleados" layoutX="24.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Empleados " wrappingWidth="77.224609375">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Text>
-                              <TableView fx:id="tableViewEmpleado" layoutX="54.0" layoutY="50.0" prefHeight="188.0" prefWidth="373.0">
+                              <TableView fx:id="tableViewEmpleado" layoutX="54.0" layoutY="50.0" prefHeight="188.0" prefWidth="450.0">
                                 <columns>
                                   <TableColumn fx:id="columnaNombre" prefWidth="75.0" text="Nombre " />
-                                  <TableColumn fx:id="columnaApellidos" prefWidth="75.0" text="Apellidos" />
+                                  <TableColumn fx:id="columnaApellido" prefWidth="75.0" text="Apellido" />
                                     <TableColumn fx:id="columnaTelefono" prefWidth="75.0" text="Telefono " />
                                     <TableColumn fx:id="columnaCorreo" prefWidth="75.0" text="Correo " />
                                     <TableColumn fx:id="columnaId" prefWidth="75.0" text="Id" />
+                                    <TableColumn fx:id="columnaEstado" prefWidth="75.0" text="Estado" />
                                 </columns>
                               </TableView>
-                              <Text layoutX="39.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
-                              <Text layoutX="37.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos:" />
-                              <Text layoutX="38.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono:" />
-                              <Text layoutX="43.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo:" />
-                              <Text layoutX="56.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id:" />
-                              <TextField fx:id="textFieldNombreEmpleado" layoutX="109.0" layoutY="263.0" />
-                              <TextField fx:id="textFieldApellidosEmpleado" layoutX="109.0" layoutY="296.0" />
-                              <TextField fx:id="textFieldTelefonoEmpleado" layoutX="109.0" layoutY="328.0" />
-                              <TextField fx:id="textFieldCorreoEmpleado" layoutX="109.0" layoutY="357.0" />
-                              <TextField fx:id="textFieldIdEmpleado" layoutX="109.0" layoutY="384.0" />
-                              <Button fx:id="btnRegistrarEmpleado" layoutX="29.0" layoutY="432.0" mnemonicParsing="false" onAction="#RegistrarEmpleado" text="Registrar Empleado" />
-                              <Button fx:id="btnActualizarEmpleado" layoutX="156.0" layoutY="432.0" mnemonicParsing="false" onAction="#ActualizarEmpleado" text="Actualizar Empleado" />
-                              <Button fx:id="btnBloquearEmpleado" layoutX="288.0" layoutY="432.0" mnemonicParsing="false" onAction="#BloquearEmpleado" text="Bloquear Empleado " />
-                              <Button fx:id="btnLimparCampos" layoutX="184.0" layoutY="462.0" mnemonicParsing="false" onAction="#LImpiarCampos" text="Limpiar Campos " />
-                              <DatePicker fx:id="textFieldPeriodoDeTiempoEmpleado" layoutX="488.0" layoutY="100.0" />
-                              <Text layoutX="515.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Periodo de tiempo: ">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Text>
-                              <Button fx:id="btnGeneracionDeReporte" layoutX="506.0" layoutY="175.0" mnemonicParsing="false" onAction="#GeneracionDeReporte" text="Generación de reporte " />
+                              <Text fx:id="labelNombre" layoutX="39.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
+                              <Text fx:id="labelApellido" layoutX="37.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido:" />
+                              <Text fx:id="labelTelefono" layoutX="38.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono:" />
+                              <Text fx:id="labelCorreo" layoutX="43.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo:" />
+                              <Text fx:id="labelId" layoutX="56.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id:" />
+                              <TextField fx:id="textFieldNombreEmpleado" layoutX="109.0" layoutY="263.0" promptText="Ingresa el nombre" />
+                              <TextField fx:id="textFieldApellidoEmpleado" layoutX="109.0" layoutY="296.0" promptText="Ingresa el apellido" />
+                              <TextField fx:id="textFieldTelefonoEmpleado" layoutX="109.0" layoutY="328.0" promptText="Ingresa el telefono" />
+                              <TextField fx:id="textFieldCorreoEmpleado" layoutX="109.0" layoutY="357.0" promptText="Ingresa el correo" />
+                              <TextField fx:id="textFieldIdEmpleado" layoutX="109.0" layoutY="384.0" promptText="Ingresa el id empleado" />
+                              <TextField fx:id="textFieldIsBlocked" editable="false" layoutX="362.0" layoutY="263.0" opacity="0.0" prefHeight="25.0" prefWidth="131.0" promptText="¿Activo o bloqueado?" />
+                              <Button fx:id="btnregistrarEmpleado" layoutX="29.0" layoutY="432.0" mnemonicParsing="false" onAction="#registrarEmpleado" text="Registrar Empleado" />
+                              <Button fx:id="btnactualizarEmpleado" layoutX="165.0" layoutY="432.0" mnemonicParsing="false" onAction="#actualizarEmpleado" text="Actualizar Empleado" />
+                              <Button fx:id="btnlimparCampos" layoutX="184.0" layoutY="462.0" mnemonicParsing="false" onAction="#limpiarCampos" text="Limpiar Campos " />
+                              <Button fx:id="btnbloquearEmpleado" layoutX="316.0" layoutY="432.0" mnemonicParsing="false" onAction="#bloquearEmpleado" text="Bloquear Empleado" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -74,4 +70,3 @@
       </AnchorPane>
    </children>
 </VBox>
-

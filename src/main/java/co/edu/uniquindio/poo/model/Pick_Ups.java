@@ -46,15 +46,5 @@ public class Pick_Ups extends Vehiculo{
     public void setNumeroBolsasDeAire(String numeroBolsasDeAire) {
         this.numeroBolsasDeAire = numeroBolsasDeAire;
     }
-    
-    @Override
-    public String toString() {
-        return super.toString() + "\n" + 
-            "numeroPasajeros:" + numeroPasajeros + "\n" +
-            "numeroPuertas:" + numeroPuertas + "\n" +
-            "capacidadCajaDeCarga:" + capacidadCajaDeCarga + "\n" +
-            "numeroBolsasDeAire:" + numeroBolsasDeAire;
-    }
-
 }
 

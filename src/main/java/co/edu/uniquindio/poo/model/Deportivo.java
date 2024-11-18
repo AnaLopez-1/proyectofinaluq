@@ -36,13 +36,5 @@ public class Deportivo extends Vehiculo {
     public void setNumeroBolsasDeAire(String numeroBolsasDeAire) {
         this.numeroBolsasDeAire = numeroBolsasDeAire;
     }
-    
-    @Override
-    public String toString() {
-        return super.toString() + "\n" + 
-            "numeroPasajeros:" + numeroPasajeros + "\n" +
-            "numeroPuertas:" + numeroPuertas + "\n" +
-            "numeroBolsasDeAire:" + numeroBolsasDeAire;
-    }
 }
 

@@ -10,8 +10,9 @@ public class Empleado extends Persona {
     private List<Vehiculo> vehiculosRegistrados;
     private List<Cliente> clientesRegistrados;
     private List<Transaccion> transaccionesRegistradas;
+    public boolean isBlocked; 
 
-    public Empleado(String nombre, String apellido, String correo, String telefono, String idEmpleado, String salario, String contraseña){
+    public Empleado(String nombre, String apellido, String correo, String telefono, String idEmpleado, String salario, String contraseña, boolean isBlocked){
         super(nombre, apellido, correo, telefono);
         this.idEmpleado=idEmpleado;
         this.salario=salario;
@@ -19,6 +20,7 @@ public class Empleado extends Persona {
         this.vehiculosRegistrados= new ArrayList<>();
         this.clientesRegistrados= new ArrayList<>();
         this.transaccionesRegistradas= new ArrayList<>();
+        this.isBlocked=false;
     }
 
     public String getIdEmpleado() {
@@ -69,8 +71,14 @@ public class Empleado extends Persona {
         this.transaccionesRegistradas = transaccionesRegistradas;
     }
 
-    
+    public boolean isBlocked() {
+        return isBlocked;
+    }
 
+    public void setBlocked(boolean isBlocked) {
+        this.isBlocked = isBlocked;
+    }
+    
     //Método Clientes
 
     public boolean agregarCliente(Cliente cliente) {
@@ -163,39 +171,5 @@ public class Empleado extends Persona {
         }
         return centinela;
     }
-    
-
-    //Método alquilar Vehículo 
-
-    public void alquilarVehiculo(Cliente cliente, Vehiculo vehiculo, Transaccion transaccion){
-        transaccionesRegistradas.add(transaccion);
-        System.out.println("Vehiculo: " +vehiculo.getMarca() + " alquilado al cliente " + cliente.getNombre() + " por el empleado " + this.getNombre());
-    }
-
-    //Método vender Vehículo 
-
-    public void venderVehiculo(Cliente cliente, Vehiculo vehiculo, Transaccion transaccion){
-        transaccionesRegistradas.add(transaccion);
-        System.out.println("Vehiculo: " +vehiculo.getMarca() + " vendido al cliente " + cliente.getNombre() + " por el empleado " + this.getNombre());
-    }
-
-    //Método comprar Vehículo 
-    public void comprarVehiculo(Cliente cliente, Vehiculo vehiculo) {
-        if (vehiculo.realizarRevisionTecnica()) {
-            Transaccion transaccion = new Transaccion(null, cliente, vehiculo, idEmpleado, contraseña);
-            transaccionesRegistradas.add(transaccion);
-            System.out.println("Vehículo comprado: " + vehiculo.getModelo() + " a " + cliente.getNombre());
-        } else {
-            System.out.println("El vehículo " + vehiculo.getModelo() + " no pasó la revisión técnica y no puede ser comprado.");
-        }
-    }
-
-    @Override
-    public String toString(){
-        return  super.toString() + "\n" + 
-            "idEmpleado:" + idEmpleado + "\n" +
-            "salario:" + salario + "\n" +
-            "contraseña:" + contraseña;
-    } 
 }
 

@@ -15,7 +15,7 @@ public class Transaccion {
         this.tipoTransaccion = tipoTransaccion;
         this.fecha=fecha; // La fecha de la transacción es el momento en que se crea
     }
-
+    
     public Empleado getEmpleado() {
         return empleado;
     }

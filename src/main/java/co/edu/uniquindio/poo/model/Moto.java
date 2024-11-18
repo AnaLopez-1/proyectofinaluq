@@ -5,15 +5,4 @@ public class Moto extends Vehiculo{
         super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
         setTipo("Moto");
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + "\n" +  
-            "marca=" + getMarca() + "\n" +
-            "esNuevo=" + getEsNuevo() + "\n" +
-            "modelo=" + getModelo() + "\n" +
-            "cambios=" + getCambios() + "\n" +
-            "velocidadMaxima=" + getVelocidadMaxima() + "\n" +
-            "cilindraje=" + getCilindraje();
-    }
 }
