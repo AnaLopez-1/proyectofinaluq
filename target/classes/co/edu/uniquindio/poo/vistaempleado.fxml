@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Pos?>
+<?import javafx.scene.image.ImageView?>
+
 
 <AnchorPane prefHeight="632.0" prefWidth="1112.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.viewcontroller.EmpleadoViewController">
     <children>
@@ -12,7 +14,7 @@
         <Text layoutX="300.0" layoutY="30.0" style="-fx-font-size: 24;" text="Gestión de Empleado" />
 
         <!-- TabPane para organizar las pestañas de Clientes, Vehículos y Transacciones -->
-        <TabPane layoutX="29.0" layoutY="39.0" prefHeight="611.0" prefWidth="863.0">
+        <TabPane layoutX="29.0" layoutY="39.0" prefHeight="611.0" prefWidth="1000.0">
             <tabs>
                 <!-- Pestaña de Vehículos -->
                 <Tab text="Vehículos">
@@ -93,6 +95,9 @@
 
                                 <Label fx:id="labeltieneONoAsistenteDePermanencia" layoutX="634.0" layoutY="323.0" text="Asistente de permanencia:" />
                                 <CheckBox fx:id="checkBoxtieneONoAsistenteDePermanenciaVehiculo" layoutX="775.0" layoutY="323.0" />
+
+                                <ImageView fx:id="imageViewVehiculo" fitHeight="200" fitWidth="300" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+
 
                                 <!-- Botón de Agregar Vehículo -->
                                 <Button fx:id="btnAgregarVehiculo" layoutX="292.0" layoutY="504.0" onAction="#agregarVehiculo" text="Agregar Vehículo" />

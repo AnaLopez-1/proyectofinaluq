@@ -2,6 +2,7 @@ module co.edu.uniquindio.poo {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
+    requires javafx.graphics;
     
     exports co.edu.uniquindio.poo.controller;  // Exporta el paquete controller
     exports co.edu.uniquindio.poo.model;  // Si necesitas exportar otros paquetes

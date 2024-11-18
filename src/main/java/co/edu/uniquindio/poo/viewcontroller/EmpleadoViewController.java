@@ -10,6 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -222,7 +224,8 @@ public class EmpleadoViewController {
     private TextField cedula;
     @FXML
     private TextField direccion;
-
+    @FXML
+    private ImageView imageViewVehiculo;
 
     public void initialize() {
 
@@ -244,6 +247,12 @@ public class EmpleadoViewController {
         // Agregar listeners para seleccionar vehículo y cliente
         tableViewVehiculos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             vehiculoSeleccionado = newValue;
+        });
+
+        comboBoxTipoVehiculo.setOnAction(event -> {
+            String tipoSeleccionado = comboBoxTipoVehiculo.getValue();
+            mostrarImagenVehiculo(tipoSeleccionado);
+            onTipoVehiculoSeleccionado();
         });
 
         columnaMarca.setCellValueFactory(new PropertyValueFactory<>("Marca"));
@@ -754,6 +763,53 @@ public class EmpleadoViewController {
             }
         } catch (NumberFormatException e) {
             showAlert("Error", "Por favor, verifique los valores numéricos ingresados.");
+        }
+    }
+
+    // Aquí debajo, puedes poner el método para mostrar la imagen
+    
+    private void mostrarImagenVehiculo(String tipoSeleccionado) {
+        try {
+            String rutaImagen = "";
+
+            // Determinar la ruta de la imagen según el tipo de vehículo
+            switch (tipoSeleccionado) {
+                case "Moto":
+                    rutaImagen = "/imagen/moto.jpg";
+                    break;
+                case "Camion":
+                    rutaImagen = "/imagen/camion.jpg";
+                    break;
+                case "Camioneta":
+                    rutaImagen = "/imagen/camioneta.jpg";
+                    break;
+                case "Deportivo":
+                    rutaImagen = "/imagen/Deportivo.jpg";
+                    break;
+                case "Bus":
+                    rutaImagen = "/imagen/Bus.jpg";
+                    break;
+                case "Sedan":
+                    rutaImagen = "/imagen/Sedan.jpg";
+                    break;
+                case "Vans":
+                    rutaImagen = "/imagen/Van.jpg";
+                    break;
+                case "Pick Ups":
+                    rutaImagen = "/imagen/pickUps.jpg";
+                    break;
+                default:
+                    rutaImagen = "/imagen/default.png";  // Imagen por defecto
+                    break;
+            }
+
+            // Cargar la imagen desde el archivo de recursos
+            Image image = new Image(getClass().getResourceAsStream(rutaImagen));
+
+            // Establecer la imagen en el ImageView
+            imageViewVehiculo.setImage(image);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
