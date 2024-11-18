@@ -8,11 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class LoginController {
 
@@ -29,8 +32,8 @@ public class LoginController {
     private Button btnIniciarSesion;
 
     // Usuarios de prueba
-    private final Login administrador = new Login("Ana", "123", "Administrador");
-    private final Login empleado = new Login("Maritza", "1234", "Empleado");
+    private final Login administrador = new Login("Ana", "123", "Administrador", "¿Cuál es su color favorito", "Azul");
+    private final Login empleado = new Login("Maritza", "1234", "Empleado", "¿Cuál es el segundo nombre de su madre?", "María");
 
     // Inicialización del controlador
     @FXML
@@ -76,6 +79,54 @@ public class LoginController {
             e.printStackTrace();
             mostrarMensaje("Error", "No se pudo cargar la vista.");
         }
+    }
+
+    @FXML
+    private void recuperarContraseña(ActionEvent event) {
+        String usuario = textFieldUsuario.getText();
+
+        // Buscar al usuario (simulado)
+        Login loginUsuario = obtenerUsuario(usuario);
+
+        if (loginUsuario != null) {
+            // Mostrar la pregunta de seguridad
+            String pregunta = loginUsuario.getPreguntaSeguridad();
+            String respuesta = mostrarDialogoPregunta(pregunta);
+
+            // Verificar la respuesta
+            if (respuesta != null && respuesta.equalsIgnoreCase(loginUsuario.getRespuestaSeguridad())) {
+                mostrarMensaje("Recuperación exitosa", "Puedes restablecer tu contraseña.");
+                // Aquí puedes permitir que el usuario cambie su contraseña
+            } else {
+                mostrarMensaje("Error", "Respuesta incorrecta.");
+            }
+        } else {
+            mostrarMensaje("Error", "Usuario no encontrado.");
+        }
+    }
+
+    private Login obtenerUsuario(String usuario) {
+        if ("Ana".equals(usuario)) {
+            return administrador;
+        } else if ("Maritza".equals(usuario)) {
+            return empleado;
+        }
+        return null;
+    }
+
+    // Método simulado para mostrar un diálogo de pregunta y permitir al usuario escribir la respuesta
+    private String mostrarDialogoPregunta(String pregunta) {
+        // Crear un diálogo de tipo "TextInputDialog" que permite al usuario escribir una respuesta
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Pregunta de Seguridad");
+        dialog.setHeaderText(null);
+        dialog.setContentText(pregunta);
+
+        // Mostrar el diálogo y esperar la respuesta del usuario
+        Optional<String> result = dialog.showAndWait();
+
+        // Si el usuario ha ingresado algo, lo devolvemos
+        return result.orElse(null);
     }
 
     // Método para mostrar un mensaje de alerta

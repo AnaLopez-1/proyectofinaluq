@@ -1,65 +1,53 @@
 package co.edu.uniquindio.poo.model;
 
+
 public class Transaccion {
-    private Empleado empleado;
-    private Cliente cliente;
-    private Vehiculo vehiculo;
-    private String tipoTransaccion; // Puede ser "Venta", "Alquiler" o "Compra"
-    private String fecha;
+        private String tipo;
+        private String vehiculo;
+        private String cliente;
 
-    // Constructor
-    public Transaccion(Empleado empleado, Cliente cliente, Vehiculo vehiculo, String tipoTransaccion, String fecha){
-        this.empleado = empleado;
-        this.cliente = cliente;
-        this.vehiculo = vehiculo;
-        this.tipoTransaccion = tipoTransaccion;
-        this.fecha=fecha; // La fecha de la transacción es el momento en que se crea
-    }
-    
-    public Empleado getEmpleado() {
-        return empleado;
-    }
+        public Transaccion(String tipo, String vehiculo, String cliente) {
+            this.tipo = tipo;
+            this.vehiculo = vehiculo;
+            this.cliente = cliente;
+        }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
+        public Transaccion(String string, Vehiculo vehiculo2, Object object, Empleado empleado2, Object object2,
+                double monto) {
+            //TODO Auto-generated constructor stub
+        }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
+        public String getTipo() {
+            return tipo;
+        }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+        public void setTipo(String tipo) {
+            this.tipo = tipo;
+        }
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
-    }
+        public String getVehiculo() {
+            return vehiculo;
+        }
 
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
-    }
+        public void setVehiculo(String vehiculo) {
+            this.vehiculo = vehiculo;
+        }
 
-    public String getTipoTransaccion() {
-        return tipoTransaccion;
-    }
+        public String getCliente() {
+            return cliente;
+        }
 
-    public void setTipoTransaccion(String tipoTransaccion) {
-        this.tipoTransaccion = tipoTransaccion;
-    }
+        public void setCliente(String cliente) {
+            this.cliente = cliente;
+        }
 
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaccion [empleado=" + empleado + ", cliente=" + cliente + ", vehiculo=" + vehiculo
-                + ", tipoTransaccion=" + tipoTransaccion + ", fecha=" + fecha + "]";
-    }
+    public static void main(String[] args) {
+        launch(args);
+            }
+        
+            private static void launch(String[] args) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'launch'");
+            }
 }
 

@@ -59,6 +59,4 @@ public class EmpleadoController {
     public Collection<Transaccion> obtenerListaTransaccions() {
         return empleado.getTransaccionesRegistradas();
     }
-
-    
 }

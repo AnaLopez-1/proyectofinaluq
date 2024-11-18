@@ -25,6 +25,7 @@ import co.edu.uniquindio.poo.model.Camioneta;
 import co.edu.uniquindio.poo.model.Deportivo;
 import co.edu.uniquindio.poo.model.Pick_Ups;
 import co.edu.uniquindio.poo.model.Sedan;
+import co.edu.uniquindio.poo.model.TipoCombustible;
 import co.edu.uniquindio.poo.model.Vans;
 import co.edu.uniquindio.poo.model.Transaccion;
 import java.time.LocalDate;
@@ -38,6 +39,7 @@ public class EmpleadoViewController {
     private Vehiculo vehiculoSeleccionado;
     private Cliente clienteSeleccionado;
     private List<Transaccion> transacciones = new ArrayList<>();  // Lista de transacciones
+    private TipoCombustible actualizarTablaConFiltro;
 
 
     //----------------------------------------------FXML VEHÍCULOS--------------------------------------
@@ -45,7 +47,9 @@ public class EmpleadoViewController {
     @FXML
     private TableView<Vehiculo> tableViewVehiculos;
     @FXML
-    private ObservableList<Vehiculo> listaVehiculos = FXCollections.observableArrayList();  // Lista completa de vehículos
+    private ObservableList<Vehiculo> listaVehiculos = FXCollections.observableArrayList(); 
+    @FXML
+    private ObservableList<Vehiculo> tipoCombustible = FXCollections.observableArrayList(); 
     @FXML
     private TableView<Cliente> tableViewClientes;
     @FXML
@@ -83,6 +87,8 @@ public class EmpleadoViewController {
     @FXML
     private ComboBox<String> comboBoxTipoVehiculo;
     @FXML
+    private ComboBox<String> comboBoxTipoCombustibleVehiculo;
+    @FXML
     private TableColumn<Vehiculo, String> columnaMarca;
     @FXML
     private TableColumn<Vehiculo, String> columnaModelo;
@@ -93,7 +99,7 @@ public class EmpleadoViewController {
     @FXML
     private TableColumn<Vehiculo, String> columnaCilindraje;
     @FXML
-    private TableColumn<Vehiculo, String> columnaCombustible;
+    private TableColumn<Vehiculo, String> columnaTipoCombustible;
     @FXML
     private TableColumn<Vehiculo, String> columnaTransmision;
     @FXML
@@ -141,7 +147,7 @@ public class EmpleadoViewController {
     @FXML
     private Label labelCilindraje;
     @FXML
-    private Label labelCombustible;
+    private Label labelTipoCombustible;
     @FXML
     private Label labelTransmision;
     @FXML
@@ -226,43 +232,56 @@ public class EmpleadoViewController {
     private TextField direccion;
     @FXML
     private ImageView imageViewVehiculo;
+    @FXML
+    private TableView<Transaccion> tableViewTransaccion;
+    @FXML
+    private TableColumn<Transaccion, String> columnaTransaccion;
+    @FXML
+    private TableColumn<Transaccion, String> columnaVehiculos;
+    @FXML
+    private TableColumn<Transaccion, String> columnaCliente;
+    @FXML
+    void onVehiculos(ActionEvent event) {
+    }
+    @FXML
+    void onCliente(ActionEvent event) {
+    }
+    @FXML
+    void onTipoTransaccion(ActionEvent event) {
+    }
+    @FXML
+    private ComboBox<String> comboBoxCliente;
+    @FXML
+    private ComboBox<String> comboBoxVehiculos;
+    @FXML
+    private ComboBox<String> comboBoxTipoTransaccion;
+
+    private ObservableList<Transaccion> listaTransacciones;
+
 
     public void initialize() {
 
+        columnaTransaccion.setCellValueFactory(new PropertyValueFactory<>("Transaccion"));
+        columnaVehiculos.setCellValueFactory(new PropertyValueFactory<>("Vehiculo"));
+        columnaCliente.setCellValueFactory(new PropertyValueFactory<>("Cliente"));
+    
+        // Crear lista observable para la tabla
+        listaTransacciones = FXCollections.observableArrayList();
+        tableViewTransaccion.setItems(listaTransacciones);
+        
         ocultarCamposEspecificosVehiculo();
         comboBoxTipoVehiculo.getValue();
         onTipoVehiculoSeleccionado();
-
-        Empleado empleado = new Empleado("Juan", "Perez", "juan@example.com", "123456789", "E001", "3000", "password123", false);
-        empleadoController = new EmpleadoController(empleado);
     
-        // Inicializar ComboBox con los tipos de vehículos
-        ObservableList<String> tipoVehiculo = FXCollections.observableArrayList("Moto", "Bus", "Camion", "Camioneta", "Deportivo", "Pick Ups", "Sedan", "Vans");
-        comboBoxTipoVehiculo.setItems(tipoVehiculo); 
-
-        // Cargar datos iniciales en las tablas
-        tableViewVehiculos.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaVehiculos()));
-        tableViewClientes.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaClientes()));
-        
-        // Agregar listeners para seleccionar vehículo y cliente
-        tableViewVehiculos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            vehiculoSeleccionado = newValue;
-        });
-
-        comboBoxTipoVehiculo.setOnAction(event -> {
-            String tipoSeleccionado = comboBoxTipoVehiculo.getValue();
-            mostrarImagenVehiculo(tipoSeleccionado);
-            onTipoVehiculoSeleccionado();
-        });
 
         columnaMarca.setCellValueFactory(new PropertyValueFactory<>("Marca"));
         columnaModelo.setCellValueFactory(new PropertyValueFactory<>("Modelo"));
         columnaCambios.setCellValueFactory(new PropertyValueFactory<>("Cambios"));
         columnaVelocidadMaxima.setCellValueFactory(new PropertyValueFactory<>("VelocidadMaxima"));
         columnaCilindraje.setCellValueFactory(new PropertyValueFactory<>("Cilindraje"));
-        columnaCombustible.setCellValueFactory(new PropertyValueFactory<>("Combustible"));
+        columnaTipoCombustible.setCellValueFactory(new PropertyValueFactory<>("tipoCombustible"));
         columnaTransmision.setCellValueFactory(new PropertyValueFactory<>("Transmision"));
-
+        
         columnaRevisionTecnica.setCellValueFactory(new PropertyValueFactory<>("revisionTecnica"));
         columnaEsNuevo.setCellValueFactory(new PropertyValueFactory<>("esNuevo"));
         columnaMaletero.setCellValueFactory(new PropertyValueFactory<>("capacidadMaletero"));
@@ -277,25 +296,102 @@ public class EmpleadoViewController {
         columnaSensoresTrafico.setCellValueFactory(new PropertyValueFactory<>("tieneONoSensorDeTrafico"));
         columnaAsistentePermanencia.setCellValueFactory(new PropertyValueFactory<>("tieneONoAsistenteDePermanencia"));
         columnaEjes.setCellValueFactory(new PropertyValueFactory<>("numeroEjes"));
-
-
+        
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
         columnaApellido.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
         columnaCedula.setCellValueFactory(new PropertyValueFactory<>("Cedula"));
         columnaCorreo.setCellValueFactory(new PropertyValueFactory<>("Correo"));
         columnaTelefono.setCellValueFactory(new PropertyValueFactory<>("Telefono"));
         columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("Direccion"));
-    
 
+        Empleado empleado = new Empleado("Juan", "Perez", "juan@example.com", "123456789", "E001", "3000", "password123", false);
+        empleadoController = new EmpleadoController(empleado);
+    
+        // Inicializar ComboBox con los tipos de vehículos
+        ObservableList<String> tipoVehiculo = FXCollections.observableArrayList("Moto", "Bus", "Camion", "Camioneta", "Deportivo", "Pick Ups", "Sedan", "Vans");
+        comboBoxTipoVehiculo.setItems(tipoVehiculo); 
+
+        comboBoxVehiculos.setItems(tipoVehiculo);
+        comboBoxVehiculos.setOnAction(e -> onVehiculos());
+
+        ObservableList<String> tipoTransaccion = FXCollections.observableArrayList(
+            "Alquiler", "Compra (Revisión Técnica)", "Venta");
+        comboBoxTipoTransaccion.setItems(tipoTransaccion);
+        comboBoxTipoTransaccion.setOnAction(e -> onTipoTransaccion());
+
+        ObservableList<String> cliente = FXCollections.observableArrayList(
+            "Maria Torres", "Ana Lopez", "Luisa Paez");
+        comboBoxCliente.setItems(cliente);
+        comboBoxCliente.setOnAction(e -> onCliente());
+    
+        ObservableList<String> tipoCombustible = FXCollections.observableArrayList("Gasolina", "Diesel", "Eléctrico", "Híbrido");
+        comboBoxTipoCombustibleVehiculo.setItems(tipoCombustible);
+    
+        // Agregar el listener al ComboBox de tipo de combustible
+        comboBoxTipoCombustibleVehiculo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            actualizarTablaConFiltro(newValue);
+        });
+    
+        // Cargar datos iniciales en las tablas
+        tableViewVehiculos.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaVehiculos()));
+        tableViewClientes.setItems(FXCollections.observableArrayList(empleadoController.obtenerListaClientes()));
+    
+        // Agregar listeners para seleccionar vehículo y cliente
+        tableViewVehiculos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            vehiculoSeleccionado = newValue;
+        });
+    
         // Listener para actualizar campos cuando se selecciona un cliente
         tableViewClientes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        clienteSeleccionado = newValue;
-        if (clienteSeleccionado != null) {
-            mostrarDatosCliente(clienteSeleccionado);
-        }
-    });
+            clienteSeleccionado = newValue;
+            if (clienteSeleccionado != null) {
+                mostrarDatosCliente(clienteSeleccionado);
+            }
+        });
+    
+        comboBoxTipoVehiculo.setOnAction(event -> {
+            String tipoSeleccionado = comboBoxTipoVehiculo.getValue();
+            mostrarImagenVehiculo(tipoSeleccionado);
+            onTipoVehiculoSeleccionado();
+        });
     }
+    
+    @FXML
+    private void generarTransaccion() {
+        // Obtener valores seleccionados
+        String tipoTransaccion = comboBoxTipoTransaccion.getValue();
+        String vehiculo = comboBoxVehiculos.getValue();
+        String cliente = comboBoxCliente.getValue();
 
+        // Validar que todos los campos estén seleccionados
+        if (tipoTransaccion == null || vehiculo == null || cliente == null) {
+            System.out.println("Por favor selecciona todos los campos.");
+            return;
+        }
+
+        // Crear nueva transacción y agregarla a la lista
+        Transaccion nuevaTransaccion = new Transaccion(tipoTransaccion, vehiculo, cliente);
+        listaTransacciones.add(nuevaTransaccion);
+    }
+    private void actualizarTablaConFiltro(String tipoCombustible) {
+        List<Vehiculo> vehiculosFiltrados = obtenerVehiculosPorTipoCombustible(tipoCombustible);
+        tableViewVehiculos.setItems(FXCollections.observableArrayList(vehiculosFiltrados));
+    }
+    
+    private List<Vehiculo> obtenerVehiculosPorTipoCombustible(String tipoCombustible) {
+        List<Vehiculo> vehiculosFiltrados = new ArrayList<>();
+    
+        for (Vehiculo vehiculo : listaVehiculos) {
+            if (vehiculo.getTipoCombustible().equals(tipoCombustible)) {
+                vehiculosFiltrados.add(vehiculo);
+            }
+        }
+    
+        // Retornar los vehículos filtrados después de completar el ciclo
+        return vehiculosFiltrados;
+    
+
+    }
 
     //--------------------------------------------VEHÍCULOS----------------------------------------
 
@@ -319,8 +415,8 @@ public class EmpleadoViewController {
         labelCilindraje.setVisible(false);
         textFieldCilindrajeVehiculo.setVisible(false);
 
-        labelCombustible.setVisible(false);
-        textFieldCombustibleVehiculo.setVisible(false);
+        labelTipoCombustible.setVisible(false);
+        comboBoxTipoCombustibleVehiculo.setVisible(false);
 
         labelTransmision.setVisible(false);
         textFieldTransmisionVehiculo.setVisible(false);
@@ -406,8 +502,8 @@ public class EmpleadoViewController {
         textFieldVelocidadMaximaVehiculo.setVisible(true);
         labelCilindraje.setVisible(true);
         textFieldCilindrajeVehiculo.setVisible(true);
-        labelCombustible.setVisible(true);
-        textFieldCombustibleVehiculo.setVisible(true);
+        labelTipoCombustible.setVisible(true);
+        comboBoxTipoCombustibleVehiculo.setVisible(true);
         labelTransmision.setVisible(true);
         textFieldTransmisionVehiculo.setVisible(true);
         labelRevisionTecnica.setVisible(true);
@@ -427,8 +523,8 @@ public class EmpleadoViewController {
         textFieldVelocidadMaximaVehiculo.setVisible(true);
         labelCilindraje.setVisible(true);
         textFieldCilindrajeVehiculo.setVisible(true);
-        labelCombustible.setVisible(true);
-        textFieldCombustibleVehiculo.setVisible(true);
+        labelTipoCombustible.setVisible(true);
+        comboBoxTipoCombustibleVehiculo.setVisible(true);
         labelTransmision.setVisible(true);
         textFieldTransmisionVehiculo.setVisible(true);
         labelRevisionTecnica.setVisible(true);
@@ -456,8 +552,8 @@ public class EmpleadoViewController {
         textFieldVelocidadMaximaVehiculo.setVisible(true);
         labelCilindraje.setVisible(true);
         textFieldCilindrajeVehiculo.setVisible(true);
-        labelCombustible.setVisible(true);
-        textFieldCombustibleVehiculo.setVisible(true);
+        labelTipoCombustible.setVisible(true);
+        comboBoxTipoCombustibleVehiculo.setVisible(true);
         labelTransmision.setVisible(true);
         textFieldTransmisionVehiculo.setVisible(true);
         labelRevisionTecnica.setVisible(true);
@@ -485,8 +581,8 @@ public class EmpleadoViewController {
         textFieldVelocidadMaximaVehiculo.setVisible(true);
         labelCilindraje.setVisible(true);
         textFieldCilindrajeVehiculo.setVisible(true);
-        labelCombustible.setVisible(true);
-        textFieldCombustibleVehiculo.setVisible(true);
+        labelTipoCombustible.setVisible(true);
+        comboBoxTipoCombustibleVehiculo.setVisible(true);
         labelTransmision.setVisible(true);
         textFieldTransmisionVehiculo.setVisible(true);
         labelRevisionTecnica.setVisible(true);
@@ -510,8 +606,8 @@ public class EmpleadoViewController {
         textFieldVelocidadMaximaVehiculo.setVisible(true);
         labelCilindraje.setVisible(true);
         textFieldCilindrajeVehiculo.setVisible(true);
-        labelCombustible.setVisible(true);
-        textFieldCombustibleVehiculo.setVisible(true);
+        labelTipoCombustible.setVisible(true);
+        comboBoxTipoCombustibleVehiculo.setVisible(true);
         labelTransmision.setVisible(true);
         textFieldTransmisionVehiculo.setVisible(true);
         labelRevisionTecnica.setVisible(true);
@@ -537,8 +633,8 @@ public class EmpleadoViewController {
         textFieldVelocidadMaximaVehiculo.setVisible(true);
         labelCilindraje.setVisible(true);
         textFieldCilindrajeVehiculo.setVisible(true);
-        labelCombustible.setVisible(true);
-        textFieldCombustibleVehiculo.setVisible(true);
+        labelTipoCombustible.setVisible(true);
+        comboBoxTipoCombustibleVehiculo.setVisible(true);
         labelTransmision.setVisible(true);
         textFieldTransmisionVehiculo.setVisible(true);
         labelRevisionTecnica.setVisible(true);
@@ -566,8 +662,8 @@ public class EmpleadoViewController {
         textFieldVelocidadMaximaVehiculo.setVisible(true);
         labelCilindraje.setVisible(true);
         textFieldCilindrajeVehiculo.setVisible(true);
-        labelCombustible.setVisible(true);
-        textFieldCombustibleVehiculo.setVisible(true);
+        labelTipoCombustible.setVisible(true);
+        comboBoxTipoCombustibleVehiculo.setVisible(true);
         labelTransmision.setVisible(true);
         textFieldTransmisionVehiculo.setVisible(true);
         labelRevisionTecnica.setVisible(true);
@@ -609,8 +705,8 @@ public class EmpleadoViewController {
         textFieldVelocidadMaximaVehiculo.setVisible(true);
         labelCilindraje.setVisible(true);
         textFieldCilindrajeVehiculo.setVisible(true);
-        labelCombustible.setVisible(true);
-        textFieldCombustibleVehiculo.setVisible(true);
+        labelTipoCombustible.setVisible(true);
+        comboBoxTipoCombustibleVehiculo.setVisible(true);
         labelTransmision.setVisible(true);
         textFieldTransmisionVehiculo.setVisible(true);
         labelRevisionTecnica.setVisible(true);
@@ -634,7 +730,7 @@ public class EmpleadoViewController {
             String cambios = textFieldCambiosVehiculo.getText().trim();
             String velocidadMaxima = textFieldVelocidadMaximaVehiculo.getText().trim();
             String cilindraje = textFieldCilindrajeVehiculo.getText().trim();
-            String combustible = textFieldCombustibleVehiculo.getText().trim();
+            String tipoCombustible = comboBoxTipoCombustibleVehiculo.getValue();
             String transmision = textFieldTransmisionVehiculo.getText().trim();
             boolean esNuevo = checkBoxEsNuevoVehiculo.isSelected();
             boolean revisionTecnica = checkBoxRevisionTecnicaVehiculo.isSelected();
@@ -657,28 +753,28 @@ public class EmpleadoViewController {
             Vehiculo nuevoVehiculo;
             switch (tipoSeleccionado) {
                 case "Moto":
-                    nuevoVehiculo = new Moto(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
+                    nuevoVehiculo = new Moto(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica);
                     break;
                 case "Bus":
-                    nuevoVehiculo = new Bus(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Bus(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, null , transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                 case "Camion":
-                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, capacidadCajaDeCarga, numeroEjes);
+                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, capacidadCajaDeCarga, numeroEjes);
                     break;
                 case "Camioneta":
-                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                 case "Deportivo":
-                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
+                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
                     break;
                 case "Pick Ups":
-                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
+                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
                     break;
                 case "Sedan":
-                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
+                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
                     break;
                 case "Vans":
-                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                     default:
                     showAlert("Error", "Seleccione un tipo de vehículo.");
@@ -704,7 +800,7 @@ public class EmpleadoViewController {
             String cambios = textFieldCambiosVehiculo.getText().trim();
             String velocidadMaxima = textFieldVelocidadMaximaVehiculo.getText().trim();
             String cilindraje = textFieldCilindrajeVehiculo.getText().trim();
-            String combustible = textFieldCombustibleVehiculo.getText().trim();
+            String tipoCombustible= comboBoxTipoCombustibleVehiculo.getValue();
             String transmision = textFieldTransmisionVehiculo.getText().trim();
             boolean esNuevo = checkBoxEsNuevoVehiculo.isSelected();
             boolean revisionTecnica = checkBoxRevisionTecnicaVehiculo.isSelected();
@@ -727,28 +823,28 @@ public class EmpleadoViewController {
             Vehiculo nuevoVehiculo;
             switch (tipoSeleccionado) {
                 case "Moto":
-                    nuevoVehiculo = new Moto(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
+                    nuevoVehiculo = new Moto(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, null, transmision, revisionTecnica);
                     break;
                 case "Bus":
-                    nuevoVehiculo = new Bus(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Bus(marca, esNuevo, modelo, cambios , velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                 case "Camion":
-                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, capacidadCajaDeCarga, numeroEjes);
+                    nuevoVehiculo = new Camion(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, capacidadCajaDeCarga, numeroEjes);
                     break;
                 case "Camioneta":
-                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Camioneta(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                 case "Deportivo":
-                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
+                    nuevoVehiculo = new Deportivo(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, numeroBolsasDeAire);
                     break;
                 case "Pick Ups":
-                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
+                    nuevoVehiculo = new Pick_Ups(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadCajaDeCarga, numeroBolsasDeAire);
                     break;
                 case "Sedan":
-                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
+                    nuevoVehiculo = new Sedan(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, tieneONoAireAcondicionado, tieneONoCamaraReversa, tieneONoVelocidadCrucero, numeroBolsasDeAire, tieneONoAbs, tieneONoSensoresColision, tieneONoSensorDeTrafico, tieneONoAsistenteDePermanencia);
                     break;
                 case "Vans":
-                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
+                    nuevoVehiculo = new Vans(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, null, transmision, revisionTecnica, numeroPasajeros, numeroPuertas, capacidadMaletero, numeroBolsasDeAire);
                     break;
                     default:
                     showAlert("Error", "Seleccione un tipo de vehículo.");
@@ -929,53 +1025,6 @@ public class EmpleadoViewController {
         }
     }
 
-    //TRANSACCIONES--------------------------------------------------------------------------------------
-
-    @FXML
-    public void realizarTransaccion() {
-        try {
-            if (clienteSeleccionado == null) {
-                mostrarError("Debe seleccionar un cliente.");
-                return;
-            }
-            
-            if (vehiculoSeleccionado == null) {
-                mostrarError("Debe seleccionar un vehículo.");
-                return;
-            }
-            
-            // Ejemplo de registro de transacción
-            Transaccion transaccion = new Transaccion(null, clienteSeleccionado, vehiculoSeleccionado, null, null);
-            transacciones.add(transaccion);
-            
-            // Confirmar la transacción
-            mostrarExito("Transacción realizada con éxito.");
-            
-        } catch (Exception e) {
-            // Manejo de excepciones
-            mostrarError("Ocurrió un error al realizar la transacción: " + e.getMessage());
-        }
-    }
-
-    // Métodos auxiliares para mostrar mensajes al usuario
-    private void mostrarExito(String mensaje) {
-        // Código para mostrar un mensaje de éxito (puede ser un alert de JavaFX, por ejemplo)
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Éxito");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
-    private void mostrarError(String mensaje) {
-        // Código para mostrar un mensaje de error (puede ser un alert de JavaFX, por ejemplo)
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
     @FXML
     private void limpiarCampos() {
         textFieldNombreCliente.setText("");
@@ -1008,6 +1057,50 @@ public class EmpleadoViewController {
         checkBoxtieneONoAsistenteDePermanenciaVehiculo.setText("");
     }
 
+    @FXML
+    public void onVehiculos() {
+        // Obtener el negocio seleccionado
+        String vehiculosSeleccionado = comboBoxVehiculos.getValue();
+        // Verificar el negocio y mostrar los campos correspondientes
+        if ("Moto ".equals(vehiculosSeleccionado)) {
+        } else if (" Bus".equals(vehiculosSeleccionado)) {
+        } else if (" Camion".equals(vehiculosSeleccionado)) {
+        } else if (" Camioneta".equals(vehiculosSeleccionado)) {
+        } else if (" Deportivo".equals(vehiculosSeleccionado)) {
+        } else if (" Pick Ups".equals(vehiculosSeleccionado)) {
+        } else if (" Sedan".equals(vehiculosSeleccionado)) { 
+        } else if (" Vans".equals(vehiculosSeleccionado)) {
+        }
+    }
+        // Método que será llamado desde el FXML
+        public void GenerarTransaccion(ActionEvent event) {
+            System.out.println("Transacción generada correctamente");
+        }
+
+        @FXML
+    public void onCliente() {
+        // Obtener el negocio seleccionado
+        String clienteSeleccionado = comboBoxCliente.getValue();
+        // Verificar el negocio y mostrar los campos correspondientes
+        if ("Maria Torres".equals(clienteSeleccionado)) {
+        } else if ("Ana Lopez".equals(clienteSeleccionado)) {
+        } else if ("Luisa Paez ".equals(clienteSeleccionado)) {
+        }
+
+    }
+    
+    @FXML
+    public void onTipoTransaccion() {
+        // Obtener el negocio seleccionado
+        String TipoTransaccionSeleccionado = comboBoxTipoTransaccion.getValue();
+        // Verificar el negocio y mostrar los campos correspondientes
+        if ("Alquiler".equals(TipoTransaccionSeleccionado)) {
+        } else if ("Compra(Revision Tecnica)".equals(TipoTransaccionSeleccionado)) {
+        } else if ("Venta ".equals(TipoTransaccionSeleccionado)) {
+        }
+
+    }   
+    
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

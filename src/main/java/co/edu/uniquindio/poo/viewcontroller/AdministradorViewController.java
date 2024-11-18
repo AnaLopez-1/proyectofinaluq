@@ -6,14 +6,23 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
+
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
 import co.edu.uniquindio.poo.controller.AdministradorController;
 import co.edu.uniquindio.poo.model.Administrador;
+import co.edu.uniquindio.poo.model.Cliente;
 import co.edu.uniquindio.poo.model.Empleado;
+import co.edu.uniquindio.poo.model.Reporte;
 import javafx.event.ActionEvent;
 
 
@@ -97,10 +106,179 @@ public class AdministradorViewController {
     private TextField contraseña;
     @FXML
     private TextField isBlocked;
-
+    //---------------------------------------------------------------REPORTE-------------------------------------------------------------------------------------------------//
+     @FXML
+    private ResourceBundle resources;
+    @FXML
+    private TextField textFieldEmpleado;
+    @FXML
+    private Text labelNegocio;
+    @FXML
+    private Text labelEmpleado;
+    @FXML
+    private Text labelFecha;
+    @FXML
+    private Text labelMonto;
+    @FXML
+    private TableView<Reporte> tableViewReporte;
+    @FXML
+    private ComboBox<String> comboBoxNegocio;
+    @FXML
+    private ComboBox<String> comboBoxMonto;
+    @FXML
+    private TableColumn<Reporte, String> columnaEmpleado;
+    @FXML
+    private TableColumn<Reporte, String> columnaNegocio;
+    @FXML
+    private TableColumn<Reporte, LocalDate> columnaFecha;
+    @FXML
+    private TableColumn<Reporte, String> columnaMonto;
+     @FXML
+    private Button btngenerarReporte;
+    @FXML
+    private DatePicker datePickerFecha;
+    @FXML
+    void generarReporte(ActionEvent event) {
+    }
+    @FXML
+    void onNegocio(ActionEvent event) {
+    }
+    @FXML
+    void onMonto(ActionEvent event) {
+    }
+    @FXML
+    private ObservableList<Reporte> listaReportes;
+    
     @FXML
     void initialize() {
+        // Configurar las columnas de la tabla
+    columnaEmpleado.setCellValueFactory(new PropertyValueFactory<>("Empleado"));
+    columnaNegocio.setCellValueFactory(new PropertyValueFactory<>("Negocio"));
+    columnaFecha.setCellValueFactory(new PropertyValueFactory<>("Fecha"));
+    columnaMonto.setCellValueFactory(new PropertyValueFactory<>("Monto"));
+    tableViewReporte.setItems(FXCollections.observableArrayList());
+    ObservableList<String> negocio = FXCollections.observableArrayList(
+            "Venta Vehiculo",
+            "Alquiler Vehiculo",
+            "Compra Vehiculo"
+        );
+        // Asignar las opciones al ComboBox
+        comboBoxNegocio.setItems(negocio);
 
+        // Asociar un evento al seleccionar un negocio
+        comboBoxNegocio.setOnAction(e -> onNegocio());
+        iniciales();
+    
+    ObservableList<String> monto = FXCollections.observableArrayList("$10,000,000 (vehículo usado económico para reventa)", "$90,000,000 (vehículo nuevo para flota empresarial)","$200,000,000 (vehículo de alta gama para concesionario)","$100,000 (1 día, auto económico)",
+    "$250,000 (1 día, auto de gama media)","$1,200,000 (semana completa, SUV estándar)","$4,500,000 (mes completo, vehículo de alta gama)","$20,000,000 (vehículo usado económico)",
+     "$35,000,000 (vehículo usado en buen estado)",
+    "$70,000,000 (vehículo nuevo estándar)",
+    "$150,000,000 (vehículo de alta gama)"
+    );
+
+        // Asignar las opciones al ComboBox
+        comboBoxMonto.setItems(monto);
+
+        // Asociar un evento al seleccionar un negocio
+        comboBoxMonto.setOnAction(e -> onMonto());
+        iniciales();
+    }
+    
+    @FXML
+    public void onMonto() {
+        // Obtener el negocio seleccionado
+        String montoSeleccionado = comboBoxMonto.getValue();
+        // Verificar el monto seleccionado y realizar las acciones correspondientes
+    if ("$10,000,000 (vehículo usado económico para reventa)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Vehículo usado económico para reventa seleccionado.");
+    } else if ("$90,000,000 (vehículo nuevo para flota empresarial)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Vehículo nuevo para flota empresarial seleccionado.");
+    } else if ("$200,000,000 (vehículo de alta gama para concesionario)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Vehículo de alta gama para concesionario seleccionado.");
+    } else if ("$100,000 (1 día, auto económico)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("1 día, auto económico seleccionado.");
+    } else if ("$250,000 (1 día, auto de gama media)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("1 día, auto de gama media seleccionado.");
+    } else if ("$1,200,000 (semana completa, SUV estándar)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Semana completa, SUV estándar seleccionado.");
+    } else if ("$4,500,000 (mes completo, vehículo de alta gama)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Mes completo, vehículo de alta gama seleccionado.");
+    } else if ("$20,000,000 (vehículo usado económico)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Vehículo usado económico seleccionado.");
+    } else if ("$35,000,000 (vehículo usado en buen estado)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Vehículo usado en buen estado seleccionado.");
+    } else if ("$70,000,000 (vehículo nuevo estándar)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Vehículo nuevo estándar seleccionado.");
+    } else if ("$150,000,000 (vehículo de alta gama)".equals(montoSeleccionado)) {
+        // Acción para este monto
+        System.out.println("Vehículo de alta gama seleccionado.");
+    } else {
+        // Acción por defecto si el monto seleccionado no coincide con ninguno
+        System.out.println("Monto no reconocido.");
+    }
+    }
+    
+    @FXML
+    public void onNegocio() {
+        // Obtener el negocio seleccionado
+        String negocioSeleccionado = comboBoxNegocio.getValue();
+        // Verificar el negocio y mostrar los campos correspondientes
+        if ("Venta Vehiculo".equals(negocioSeleccionado)) {
+        } else if ("Alquiler Vehiculo".equals(negocioSeleccionado)) {
+        } else if ("Compra Vehiculo".equals(negocioSeleccionado)) {
+        }
+    }
+    @FXML
+    public void generarReporte() {
+    System.out.println("Botón Generar Reporte presionado");
+
+    // Obtener los valores ingresados en los campos
+    String empleado = textFieldEmpleado.getText();
+    LocalDate fechaSeleccionada = datePickerFecha.getValue();
+    String negocioSeleccionado = comboBoxNegocio.getValue();
+    String montoSeleccionado = comboBoxMonto.getValue();
+
+    // Validar que todos los campos estén llenos
+    if (empleado.isEmpty() || fechaSeleccionada == null || negocioSeleccionado == null || montoSeleccionado.isEmpty()) {
+        showAlert("Error", "Todos los campos son obligatorios.");
+        return;
+    }
+
+    // Crear un nuevo registro con los datos ingresados
+    Reporte reporte = new Reporte(empleado, fechaSeleccionada, negocioSeleccionado, montoSeleccionado);
+
+    // Agregar el nuevo registro a la tabla
+    tableViewReporte.getItems().add(reporte);
+
+    // Limpiar los campos después de agregar
+    limpiarCampos();
+
+    // Mostrar mensaje de éxito
+    showAlert("Generar Reporte", "El reporte ha sido agregado a la tabla.");
+    }
+    @FXML
+    private void mostrarDatosReporte(Reporte reporte) {
+        // Asignar valores a los controles de la interfaz
+        textFieldEmpleado.setText(reporte.getEmpledo()); // Asigna el empleado al TextField
+        datePickerFecha.setValue(reporte.getFecha()); // Asigna la fecha al DatePicker (debe ser LocalDate)
+        comboBoxNegocio.setValue(reporte.getNegocio()); // Asigna el negocio al ComboBox
+        comboBoxMonto.setValue(reporte.getMonto()); // Asigna el monto al TextFieldSystem.out.println("Empleado: " + reporte.getEmpledo());
+        System.out.println("Fecha: " + reporte.getFecha());
+        System.out.println("Negocio: " + reporte.getNegocio());
+        System.out.println("Monto: " + reporte.getMonto());
+}    
+    @FXML
+    public void iniciales(){
         Administrador administrador = new Administrador("Juan", "Perez", "juan@example.com", "123456789", "E001", "3000", "password123");
         administradorController = new AdministradorController(administrador);
         
@@ -146,10 +324,7 @@ public class AdministradorViewController {
             showAlert("Error", "Todos los campos son obligatorios.");
             return;
         }
-
         Empleado empleado = new Empleado(nombre, apellido, correo, telefono, idEmpleado, correo, idEmpleado, false);
-
-
         if (administradorController.registrarEmpleado(empleado)) {
             tableViewEmpleado.setItems(FXCollections.observableArrayList(administradorController.obtenerListaEmpleados()));
             showAlert("Empleado Registrado", "El empleado ha sido registrado correctamente");

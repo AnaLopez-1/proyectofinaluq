@@ -13,8 +13,8 @@ public class Sedan extends Vehiculo {
     private boolean tieneONoSensorDeTrafico;
     private boolean tieneONoAsistenteDePermanencia;
 
-    public Sedan (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, String numeroPasajeros, String numeroPuertas, String capacidadMaletero, boolean tieneONoAireAcondicionado, boolean tieneONoCamaraReversa, boolean tieneONoVelocidadCrucero, String numeroBolsasDeAire, boolean tieneONoAbs, boolean tieneONoSensoresColision, boolean tieneONoSensorDeTrafico, boolean tieneONoAsistenteDePermanencia){
-        super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
+    public Sedan (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, TipoCombustible tipoCombustible, String transmision, boolean revisionTecnica, String numeroPasajeros, String numeroPuertas, String capacidadMaletero, boolean tieneONoAireAcondicionado, boolean tieneONoCamaraReversa, boolean tieneONoVelocidadCrucero, String numeroBolsasDeAire, boolean tieneONoAbs, boolean tieneONoSensoresColision, boolean tieneONoSensorDeTrafico, boolean tieneONoAsistenteDePermanencia){
+        super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, tipoCombustible, transmision, revisionTecnica);
         this.numeroPasajeros=numeroPasajeros;
         this.numeroPuertas=numeroPuertas;
         this.capacidadMaletero=capacidadMaletero;

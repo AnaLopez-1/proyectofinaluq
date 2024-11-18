@@ -7,29 +7,29 @@ public abstract class Vehiculo {
     private String cambios;
     private String velocidadMaxima;
     private String cilindraje;
-    private String combustible;
+    private TipoCombustible tipoCombustible;
     private String transmision;
     private boolean revisionTecnica;
     private String tipo;
   
-    public Vehiculo (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica){
+    public Vehiculo (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, TipoCombustible tipoCombustible, String transmision, boolean revisionTecnica){
         this.marca=marca;
         this.esNuevo=esNuevo;
         this.modelo=modelo;
         this.cambios=cambios;
         this.velocidadMaxima=velocidadMaxima;
         this.cilindraje=cilindraje;
-        this.combustible=combustible;
+        this.tipoCombustible=tipoCombustible;
         this.transmision=transmision;
         this.revisionTecnica=revisionTecnica;
     }
     
-    public String getCombustible() {
-        return combustible;
+    public TipoCombustible getTipoCombustible() {
+        return tipoCombustible;
     }
 
-    public void setCombustible(String combustible) {
-        this.combustible = combustible;
+    public void setTipoCombustible(TipoCombustible tipoCombustible) {
+        this.tipoCombustible = tipoCombustible;
     }
 
     public String getTransmision() {
@@ -121,20 +121,4 @@ public abstract class Vehiculo {
         }
         return revisionTecnica;
         }
-
-    @Override
-    public String toString() {
-        return "marca:" + marca + "\n"+ 
-        "esNuevo:" + esNuevo + "\n"+
-        "modelo:" + modelo + "\n"+
-        "cambios:" + cambios + "\n"+
-        "velocidadMaxima:" + velocidadMaxima + "\n"+
-        "cilindraje:" + cilindraje + "\n" +
-        "combustible:" + combustible + "\n" +
-        "transmision" + transmision;
-    }
-    
-    public static void mostrarMensaje(String mensaje){
-        System.out.println(mensaje);
-    }
 }

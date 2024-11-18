@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -61,7 +60,26 @@
                 </Tab>
                 <Tab text="Reporte negocios realizados ">
                      <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="252.0" prefWidth="565.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="496.0" prefWidth="640.0">
+                           <children>
+                              <TableView fx:id="tableViewReporte" layoutX="185.0" layoutY="27.0" prefHeight="197.0" prefWidth="309.0">
+                                <columns>
+                                  <TableColumn fx:id="columnaEmpleado" prefWidth="75.0" text="Empleado" />
+                                  <TableColumn fx:id="columnaNegocio" prefWidth="75.0" text="Negocio " />
+                                    <TableColumn fx:id="columnaFecha" prefWidth="93.0" text="Fecha " />
+                                    <TableColumn fx:id="columnaMonto" prefWidth="68.0" text="Monto" />
+                                </columns>
+                              </TableView>
+                              <Text fx:id="labelEmpleado" layoutX="172.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Empleado:" />
+                              <Text fx:id="labelFecha" layoutX="183.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha:" />
+                              <Text fx:id="labelNegocio" layoutX="458.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Negocio:" />
+                              <TextField fx:id="textFieldEmpleado" layoutX="96.0" layoutY="282.0" prefHeight="25.0" prefWidth="206.0" />
+                              <DatePicker fx:id="datePickerFecha" layoutX="101.0" layoutY="363.0" prefHeight="24.0" prefWidth="198.0" />
+                              <Button fx:id="btngenerarReporte" layoutX="288.0" layoutY="449.0" mnemonicParsing="false" onAction="#generarReporte" text="Generar Reporte" />
+                              <ComboBox fx:id="comboBoxNegocio" layoutX="392.0" layoutY="282.0" onAction="#onNegocio" prefHeight="25.0" prefWidth="189.0" />
+                              <Text fx:id="labelMonto" layoutX="462.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monto:" />
+                              <ComboBox fx:id="comboBoxMonto" layoutX="392.0" layoutY="363.0" onAction="#onMonto" prefHeight="25.0" prefWidth="189.0" />
+                           </children></AnchorPane>
                      </content>
                 </Tab>
               </tabs>

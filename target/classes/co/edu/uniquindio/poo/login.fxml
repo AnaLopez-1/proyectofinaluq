@@ -33,11 +33,13 @@
             </FXCollections>
          </items>
       </ChoiceBox>
-      <Button fx:id="btnIniciarSesion" layoutX="323.0" layoutY="334.0" onAction="#iniciarSesion" text="Iniciar Sesión" />
+      <Button fx:id="btnIniciarSesion" layoutX="323.0" layoutY="297.0" onAction="#iniciarSesion" text="Iniciar Sesión" />
       <Text fx:id="textCarro" layoutX="307.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu carro UQ" wrappingWidth="136.0">
          <font>
             <Font name="Copperplate Gothic Bold" size="18.0" />
          </font>
       </Text>
+      <Label fx:id="textOlvidasteContraseña" layoutX="298.0" layoutY="329.0" text="¿Olvidaste tu contraseña?" />
+      <Button fx:id="btnRecuperarContraseña" layoutX="299.0" layoutY="353.0" mnemonicParsing="false" onAction="#recuperarContraseña" text="Recuperar Contraseña" />
    </children>
 </AnchorPane>

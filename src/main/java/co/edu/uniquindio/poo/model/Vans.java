@@ -6,8 +6,8 @@ public class Vans extends Vehiculo{
     private String capacidadMaletero;
     private String numeroBolsasDeAire;
 
-    public Vans (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, String combustible, String transmision, boolean revisionTecnica, String numeroPasajeros, String numeroPuertas, String capacidadMaletero, String numeroBolsasDeAire){
-        super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, combustible, transmision, revisionTecnica);
+    public Vans (String marca, boolean esNuevo, String modelo, String cambios, String velocidadMaxima, String cilindraje, TipoCombustible tipoCombustible, String transmision, boolean revisionTecnica, String numeroPasajeros, String numeroPuertas, String capacidadMaletero, String numeroBolsasDeAire){
+        super(marca, esNuevo, modelo, cambios, velocidadMaxima, cilindraje, tipoCombustible, transmision, revisionTecnica);
         this.numeroPasajeros=numeroPasajeros;
         this.numeroPuertas=numeroPuertas;
         this.capacidadMaletero=capacidadMaletero;
